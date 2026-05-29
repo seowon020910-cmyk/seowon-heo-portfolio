@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seowon Heo — Claire</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf6f2;
+  --white: #ffffff;
+  --ink: #1a1410;
+  --mid: #5a5248;
+  --soft: #a09488;
+  --rule: rgba(26,20,16,0.1);
+  --rule2: rgba(26,20,16,0.05);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Space Mono', monospace;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:300;
+  height: 46px;
+  display: flex; align-items:center; justify-content:space-between;
+  padding: 0 32px;
+  background: rgba(250,246,242,0.9);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-id {
+  font-size: 9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--soft);
+}
+.nav-links { display:flex; gap:2rem; list-style:none; }
+.nav-links a {
+  font-size: 9px; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--soft); text-decoration:none; transition:color 0.2s;
+}
+.nav-links a:hover { color:var(--ink); }
+
+/* ══════════════════════════════════
+   HERO — fullbleed image 2 (standing)
+══════════════════════════════════ */
+#hero {
+  position: relative;
+  width: 100%; height: 100vh;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset:0;
+  width:100%; height:100%;
+  object-fit: cover;
+  object-position: center 25%;
+  transform: scale(1.02);
+  transition: transform 8s ease;
+}
+#hero:hover .hero-bg { transform: scale(1.05); }
+
+/* scanline */
+.hero-scan {
+  position:absolute; inset:0; pointer-events:none; z-index:2;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 3px,
+    rgba(255,255,255,0.018) 3px, rgba(255,255,255,0.018) 4px
+  );
+}
+/* bottom fade */
+.hero-fade {
+  position:absolute; bottom:0; left:0; right:0; height:50%;
+  background: linear-gradient(transparent, var(--cream));
+  pointer-events:none; z-index:3;
+}
+
+/* UI corner labels */
+.ui-label {
+  position:absolute; z-index:5;
+  font-size:9px; letter-spacing:0.18em; text-transform:uppercase;
+  color:rgba(255,255,255,0.45); line-height:1.8;
+}
+.ui-tl { top:62px; left:32px; }
+.ui-tr { top:62px; right:32px; text-align:right; }
+
+/* hero text block */
+.hero-text {
+  position:absolute; bottom:80px; left:52px; z-index:10;
+  animation: fadeUp 1s ease 0.3s both;
+}
+.hero-eyebrow {
+  font-size:9px; letter-spacing:0.3em; text-transform:uppercase;
+  color:rgba(255,255,255,0.55); margin-bottom:14px;
+  display:flex; align-items:center; gap:10px;
+}
+.hero-eyebrow::before {
+  content:''; width:20px; height:1px; background:rgba(255,255,255,0.4);
+}
+.hero-name {
+  font-family:'Cormorant Garamond', serif;
+  font-size: clamp(4.5rem, 9vw, 8rem);
+  font-weight:300; line-height:0.88; letter-spacing:-0.02em;
+  color:#fff; text-shadow:0 4px 60px rgba(0,0,0,0.15);
+  margin-bottom:10px;
+}
+.hero-name em { font-style:italic; }
+.hero-handle {
+  font-size:10px; letter-spacing:0.2em; text-transform:uppercase;
+  color:rgba(255,255,255,0.55); margin-bottom:22px;
+}
+.hero-contacts { display:flex; gap:20px; flex-wrap:wrap; }
+.hero-contacts a {
+  font-size:9px; letter-spacing:0.12em;
+  color:rgba(255,255,255,0.7); text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,0.25); padding-bottom:1px;
+  transition:all 0.2s;
+}
+.hero-contacts a:hover { color:#fff; border-color:#fff; }
+
+/* scroll hint */
+.scroll-hint {
+  position:absolute; bottom:28px; right:32px; z-index:10;
+  font-size:8px; letter-spacing:0.2em; text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+  animation: blink 2.5s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ══════════════════════════════════
+   MAIN LAYOUT — left scroll + right sticky
+══════════════════════════════════ */
+#main-layout {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  position: relative;
+}
+
+/* LEFT — scrollable content */
+.content-left {
+  border-right: 1px solid var(--rule);
+  min-height: 100vh;
+}
+
+/* RIGHT — sticky unicorn panel */
+.sticky-right {
+  position: sticky;
+  top: 46px;
+  height: calc(100vh - 46px);
+  overflow: hidden;
+  display: flex; flex-direction:column;
+}
+.sticky-unicorn {
+  flex:1; position:relative; overflow:hidden;
+}
+.sticky-unicorn img {
+  width:100%; height:100%;
+  object-fit: cover;
+  object-position: center center;
+}
+/* subtle gradient on left edge */
+.sticky-unicorn::before {
+  content:'';
+  position:absolute; top:0; left:0; bottom:0; width:60px;
+  background: linear-gradient(to right, var(--cream), transparent);
+  z-index:2; pointer-events:none;
+}
+/* FMP UI overlay on sticky panel */
+.sticky-ui {
+  position:absolute; inset:0; z-index:3; pointer-events:none;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 4px,
+    rgba(255,255,255,0.015) 4px, rgba(255,255,255,0.015) 5px
+  );
+}
+.sticky-label-top {
+  position:absolute; top:20px; left:20px; z-index:4;
+  font-size:8px; letter-spacing:0.18em; text-transform:uppercase;
+  color:rgba(255,255,255,0.35); line-height:1.8;
+}
+.sticky-label-bot {
+  position:absolute; bottom:20px; right:16px; z-index:4;
+  font-size:8px; letter-spacing:0.14em; text-transform:uppercase;
+  color:rgba(255,255,255,0.3); text-align:right; line-height:1.8;
+}
+/* state indicator */
+.state-bar {
+  padding:16px 20px;
+  border-top:1px solid var(--rule);
+  display:flex; align-items:center; gap:12px;
+}
+.state-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:#c8a8b8; animation:pulse 3s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.state-text {
+  font-size:8px; letter-spacing:0.18em; text-transform:uppercase; color:var(--soft);
+}
+
+/* ── section structure ── */
+.sec-bar {
+  display:grid; grid-template-columns:60px 1fr;
+  border-bottom:1px solid var(--rule);
+  padding:18px 0;
+}
+.sec-bar-num {
+  padding:0 18px; font-size:9px; color:var(--soft); letter-spacing:0.12em;
+  border-right:1px solid var(--rule); display:flex; align-items:center;
+}
+.sec-bar-title {
+  padding:0 24px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem; font-weight:300; font-style:italic;
+  display:flex; align-items:center;
+}
+
+/* ── INTRO ── */
+.intro-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+}
+.intro-col {
+  padding:40px 28px;
+  border-right:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+}
+.intro-col:nth-child(even) { border-right:none; }
+.intro-col:nth-last-child(-n+2) { border-bottom:none; }
+
+.col-label {
+  font-size:8px; letter-spacing:0.22em; text-transform:uppercase;
+  color:var(--soft); margin-bottom:18px;
+  padding-bottom:10px; border-bottom:1px solid var(--rule2);
+}
+.col-body {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem; line-height:1.85; color:var(--mid); font-weight:300;
+}
+.col-body p { margin-bottom:8px; }
+.col-body em { font-style:italic; }
+.col-list { list-style:none; }
+.col-list li {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem; color:var(--mid);
+  padding:8px 0; border-bottom:1px solid var(--rule2); line-height:1.4;
+}
+.col-list li:last-child { border-bottom:none; }
+.col-list li span {
+  display:block; font-size:8px; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--soft);
+  font-family:'Space Mono',monospace; margin-top:2px;
+}
+
+/* ── FMP ── */
+.fmp-col {
+  padding:36px 28px;
+  border-bottom:1px solid var(--rule);
+}
+.fmp-col + .fmp-col { border-top:1px solid var(--rule); }
+
+.em-list { list-style:none; }
+.em-item {
+  padding:13px 0; border-bottom:1px solid var(--rule2);
+}
+.em-item:last-child { border-bottom:none; }
+.em-state { font-size:8px; letter-spacing:0.16em; text-transform:uppercase; color:var(--soft); margin-bottom:3px; }
+.em-name { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-style:italic; margin-bottom:3px; }
+.em-item[data-s="torn"] .em-name { color:#c07070; }
+.em-item[data-s="inflated"] .em-name { color:#b08860; }
+.em-item[data-s="thinned"] .em-name { color:#6888a8; }
+.em-item[data-s="collapsed"] .em-name { color:#8878a0; }
+.em-desc { font-size:9px; color:var(--soft); line-height:1.7; }
+
+/* ── WORK rows ── */
+.work-row {
+  display:grid; grid-template-columns:48px 1fr auto;
+  border-bottom:1px solid var(--rule);
+  transition:background 0.2s;
+}
+.work-row:hover { background:rgba(200,168,184,0.08); }
+.work-row:last-child { border-bottom:none; }
+.wr-num {
+  padding:20px 14px;
+  font-size:9px; color:var(--soft);
+  border-right:1px solid var(--rule);
+  display:flex; align-items:flex-start;
+}
+.wr-body { padding:20px 22px; }
+.wr-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem; font-style:italic; margin-bottom:3px;
+}
+.wr-role {
+  font-size:8px; letter-spacing:0.12em; text-transform:uppercase; color:var(--soft);
+}
+.wr-meta {
+  padding:20px 18px 20px 0;
+  font-size:9px; color:var(--soft); text-align:right;
+  white-space:nowrap; display:flex; flex-direction:column; align-items:flex-end; gap:4px;
+}
+.wr-badge {
+  font-size:7px; letter-spacing:0.1em; padding:2px 9px;
+  border-radius:100px; border:1px solid currentColor;
+}
+.wr-badge.pink { color:#b07080; }
+.wr-badge.sky { color:#608098; }
+
+/* ── ABOUT ── */
+.about-col {
+  padding:40px 28px;
+  border-bottom:1px solid var(--rule);
+}
+.ab-tag { font-size:8px; letter-spacing:0.2em; text-transform:uppercase; color:var(--soft); margin-bottom:10px; }
+.ab-title { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-style:italic; margin-bottom:18px; }
+.ab-point { margin-bottom:16px; }
+.ab-pt-key { font-size:8px; letter-spacing:0.12em; text-transform:uppercase; color:var(--mid); margin-bottom:5px; }
+.ab-pt-val { font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--mid); line-height:1.8; }
+
+/* ── SKILLS ── */
+.skills-grid { display:grid; grid-template-columns:1fr 1fr; }
+.sk-col {
+  padding:32px 28px;
+  border-right:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+}
+.sk-col:nth-child(even) { border-right:none; }
+.sk-col:nth-last-child(-n+2) { border-bottom:none; }
+.sk-label { font-size:8px; letter-spacing:0.2em; text-transform:uppercase; color:var(--soft); margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--rule2); }
+.sk-item { padding:8px 0; border-bottom:1px solid var(--rule2); display:flex; justify-content:space-between; align-items:center; }
+.sk-item:last-child { border-bottom:none; }
+.sk-name { font-family:'Cormorant Garamond',serif; font-size:1rem; font-style:italic; color:var(--mid); }
+.sk-pips { display:flex; gap:3px; }
+.sk-pips span { width:5px; height:5px; border-radius:50%; border:1px solid var(--soft); }
+.sk-pips span.on { background:var(--soft); }
+.sk-bullets { list-style:none; }
+.sk-bullets li { font-size:9px; color:var(--mid); line-height:1.9; padding-left:10px; position:relative; }
+.sk-bullets li::before { content:'—'; position:absolute; left:0; color:var(--soft); font-size:8px; }
+
+/* ── RESUME ── */
+.res-grid { display:grid; grid-template-columns:1fr 1fr; }
+.res-col { padding:36px 28px; border-right:1px solid var(--rule); }
+.res-col:last-child { border-right:none; }
+.res-label { font-size:8px; letter-spacing:0.2em; text-transform:uppercase; color:var(--soft); margin-bottom:20px; padding-bottom:8px; border-bottom:1px solid var(--rule2); }
+.res-item { padding:14px 0; border-bottom:1px solid var(--rule2); }
+.res-item:last-child { border-bottom:none; }
+.res-title { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-style:italic; margin-bottom:2px; }
+.res-sub { font-size:8px; letter-spacing:0.1em; color:var(--mid); margin-bottom:2px; }
+.res-date { font-size:8px; color:var(--soft); }
+.res-desc { font-size:9px; color:var(--soft); margin-top:4px; line-height:1.7; }
+.cert-chip {
+  display:inline-block; margin-top:5px;
+  font-size:8px; letter-spacing:0.08em;
+  padding:2px 10px; border-radius:100px;
+  border:1px solid var(--rule); color:var(--mid);
+  background:rgba(200,220,210,0.4);
+}
+
+/* ── CONTACT ── */
+.contact-wrap {
+  padding:48px 28px;
+}
+.contact-hl {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:300; line-height:1; margin-bottom:20px;
+}
+.contact-hl em { font-style:italic; }
+.contact-sub {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem; color:var(--mid); line-height:1.9;
+  max-width:36ch; margin-bottom:32px;
+}
+.ct-row { padding:13px 0; border-bottom:1px solid var(--rule2); }
+.ct-row:last-child { border-bottom:none; }
+.ct-key { font-size:8px; letter-spacing:0.2em; text-transform:uppercase; color:var(--soft); margin-bottom:3px; }
+.ct-val { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-style:italic; }
+.ct-val a { color:var(--ink); text-decoration:none; }
+.ct-val a:hover { text-decoration:underline; }
+.av-chips { display:flex; flex-wrap:wrap; gap:7px; margin-top:7px; }
+.av-chip {
+  font-size:8px; letter-spacing:0.08em; text-transform:uppercase;
+  padding:3px 12px; border-radius:100px;
+  border:1px solid var(--rule); color:var(--mid);
+}
+.av-chip:nth-child(1){background:rgba(200,220,216,0.5);}
+.av-chip:nth-child(2){background:rgba(220,200,208,0.5);}
+.av-chip:nth-child(3){background:rgba(210,200,230,0.5);}
+.av-chip:nth-child(4){background:rgba(200,216,230,0.5);}
+.av-chip:nth-child(5){background:rgba(230,220,200,0.5);}
+
+/* ── FOOTER ── */
+footer {
+  border-top:1px solid var(--rule);
+  padding:16px 28px;
+  display:flex; justify-content:space-between; align-items:center;
+  grid-column:1/-1;
+}
+footer p { font-size:8px; letter-spacing:0.12em; color:var(--soft); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  #main-layout { grid-template-columns:1fr; }
+  .sticky-right { display:none; }
+  .intro-grid,.skills-grid,.res-grid { grid-template-columns:1fr; }
+  .intro-col,.sk-col,.res-col { border-right:none; border-bottom:1px solid var(--rule); }
+  .work-row { grid-template-columns:40px 1fr; }
+  .wr-meta { display:none; }
+  nav { padding:0 16px; }
+  .hero-text { left:24px; bottom:60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-id">Seowon Heo — Claire</div>
+  <ul class="nav-links">
+    <li><a href="#fmp-sec">FMP</a></li>
+    <li><a href="#work-sec">Work</a></li>
+    <li><a href="#about-sec">About</a></li>
+    <li><a href="#skills-sec">Skills</a></li>
+    <li><a href="#resume-sec">Resume</a></li>
+    <li><a href="#contact-sec">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO — Image 2 fullbleed ══ -->
+<section id="hero">
+  <img class="hero-bg" src="unicorn_standing.jpg" alt="ETB — SYNFEEL">
+  <div class="hero-scan"></div>
+  <div class="hero-fade"></div>
+
+  <div class="ui-label ui-tl">
+    ETB · SYNFEEL<br>
+    System Active — 2025
+  </div>
+  <div class="ui-label ui-tr">
+    Theatre &amp; Media<br>
+    Seoul — London
+  </div>
+
+  <div class="hero-text">
+    <p class="hero-eyebrow">Production Creative</p>
+    <h1 class="hero-name">Seowon<br><em>Heo</em></h1>
+    <p class="hero-handle">— Claire &nbsp;/&nbsp; 허서원</p>
+    <div class="hero-contacts">
+      <a href="mailto:seowon020910@gmail.com">seowon020910@gmail.com</a>
+      <a href="tel:+4407399312743">+44 07399 312 743</a>
+      <a href="tel:+821092583154">+82 10 9258 3154</a>
+    </div>
+  </div>
+
+  <p class="scroll-hint">scroll ↓</p>
+</section>
+
+<!-- ══ MAIN LAYOUT ══ -->
+<div id="main-layout">
+
+  <!-- ── LEFT CONTENT ── -->
+  <div class="content-left">
+
+    <!-- INTRO -->
+    <div class="intro-grid">
+      <div class="intro-col">
+        <p class="col-label">Who</p>
+        <div class="col-body">
+          <p>Seowon Heo is a production-focused creative from Seoul, currently based in London.</p>
+          <p>BA in Advertising Creation, <em>Seoul Institute of the Arts</em> — BA in Media Skills, <em>Kingston University</em> (in progress).</p>
+        </div>
+      </div>
+      <div class="intro-col">
+        <p class="col-label">Practice</p>
+        <div class="col-body">
+          <p>Live theatre production, assistant directing, costume design, and broadcast media — from rehearsal room to live broadcast.</p>
+          <p>17+ productions across Seoul's major venues and international festivals.</p>
+        </div>
+      </div>
+      <div class="intro-col">
+        <p class="col-label">Roles</p>
+        <ul class="col-list">
+          <li>Assistant Director <span>Theatre</span></li>
+          <li>Co-Director <span>Devised / Festival</span></li>
+          <li>Stage Manager <span>Live / Immersive</span></li>
+          <li>Costume Designer <span>Theatre / Media / MV</span></li>
+          <li>TV Producer <span>Broadcast</span></li>
+        </ul>
+      </div>
+      <div class="intro-col">
+        <p class="col-label">Recent</p>
+        <ul class="col-list">
+          <li><em>4 Toilets</em> — Co-Director <span>Emerging Artists Festival · 2025</span></li>
+          <li><em>ETB / SYNFEEL</em> — FMP <span>Kingston University · 2025</span></li>
+          <li><em>Soran</em> MV — Costume Design <span>2024–25</span></li>
+          <li>Symposium — Design Team Lead <span>Kingston · 2025</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FMP -->
+    <section id="fmp-sec">
+      <div class="sec-bar" onclick="location.href='project_etb.html'" style="cursor:pointer;">
+        <div class="sec-bar-num">00</div>
+        <div class="sec-bar-title">Emotion Translation Bureau <span style="font-size:12px;color:var(--soft);margin-left:16px;">View full FMP →</span></div>
+      </div>
+
+      <div class="fmp-col">
+        <p class="col-label">Core Question</p>
+        <div class="col-body">
+          <p><em>"Can emotion be translated as a system?"</em></p>
+          <p>This project steps away from narrative emotion — no catharsis, no story arc. Emotion is <strong style="font-weight:400;color:var(--ink);">observed, analysed, and output as structural data.</strong></p>
+          <p>Same input pressure → different outputs. This mirrors how human emotion actually works: not a fixed state, but a dynamic response architecture.</p>
+          <p style="font-size:0.9rem;color:var(--soft);margin-top:8px;">Tools: Midjourney · Kling · CapCut &nbsp;·&nbsp; 8–10 min experimental film<br>Frame: ETB (academic) / SYNFEEL (brand / interface)</p>
+        </div>
+      </div>
+
+      <div class="fmp-col">
+        <p class="col-label">Visual Language — Textile as Structure</p>
+        <div class="col-body">
+          <p>Lace, silk, organza, pearls, stitch lines — structural metaphors, not aesthetics.</p>
+          <p>The <em>textile horse / unicorn</em> is emotion made physical: if emotion had a body, what structure would it have? The <em>SYSTEM MODE overlay</em> shifts the film from poetic to analytical mid-sequence.</p>
+        </div>
+      </div>
+
+      <div class="fmp-col">
+        <p class="col-label">Four Output States</p>
+        <ul class="em-list">
+          <li class="em-item" data-s="torn">
+            <p class="em-state">State_01</p>
+            <p class="em-name">Torn</p>
+            <p class="em-desc">Rupture under excess load — emotional overload as physical fracture.</p>
+          </li>
+          <li class="em-item" data-s="inflated">
+            <p class="em-state">State_02</p>
+            <p class="em-name">Inflated</p>
+            <p class="em-desc">Suppressed emotion swells beyond the structure — distortion through containment.</p>
+          </li>
+          <li class="em-item" data-s="thinned">
+            <p class="em-state">State_03</p>
+            <p class="em-name">Thinned</p>
+            <p class="em-desc">Depletion — structure becomes translucent, fragile. Quiet erosion.</p>
+          </li>
+          <li class="em-item" data-s="collapsed">
+            <p class="em-state">State_04</p>
+            <p class="em-name">Collapsed</p>
+            <p class="em-desc">Total structural failure — the state before any restructuring begins.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work-sec">
+      <div class="sec-bar">
+        <div class="sec-bar-num">01</div>
+        <div class="sec-bar-title">Selected Work</div>
+      </div>
+
+      <!-- 1. The Lehman Trilogy -->
+      <div class="work-row" onclick="location.href='project_lehman.html'" style="cursor:pointer;">
+        <div class="wr-num">001</div>
+        <div class="wr-body">
+          <p class="wr-title"><em>The Lehman Trilogy</em></p>
+          <p class="wr-role">Lead Costume Designer</p>
+        </div>
+        <div class="wr-meta">2023<br>Namsan Drama Centre<br><span style="font-size:10px;margin-top:4px;display:block;">View details →</span></div>
+      </div>
+      <!-- 2. Over Sleep -->
+      <div class="work-row" onclick="location.href='project_oversleep.html'" style="cursor:pointer;">
+        <div class="wr-num">002</div>
+        <div class="wr-body">
+          <p class="wr-title"><em>Over Sleep</em> — Musical</p>
+          <p class="wr-role">Lead Costume Designer</p>
+        </div>
+        <div class="wr-meta">2023<br>Red Gate Theatre<br><span style="font-size:10px;margin-top:4px;display:block;">View details →</span></div>
+      </div>
+      <!-- 3. FAME -->
+      <div class="work-row" onclick="location.href='project_fame.html'" style="cursor:pointer;">
+        <div class="wr-num">003</div>
+        <div class="wr-body">
+          <p class="wr-title"><em>FAME</em> — Musical</p>
+          <p class="wr-role">Lead Costume Designer</p>
+        </div>
+        <div class="wr-meta">2023<br>Yejang Hall<br><span style="font-size:10px;margin-top:4px;display:block;">View details →</span></div>
+      </div>
+      <!-- 4. AI LAB -->
+      <div class="work-row" onclick="location.href='project_ailab.html'" style="cursor:pointer;">
+        <div class="wr-num">004</div>
+        <div class="wr-body">
+          <p class="wr-title">AI LAB — <em>So We Ask</em> (Team. Anotherland)</p>
+          <p class="wr-role">Props & Stage Assistant</p>
+        </div>
+        <div class="wr-meta">2023<br>Red Gate Theatre<br><span style="font-size:10px;margin-top:4px;display:block;">View details →</span></div>
+      </div>
+      <!-- 5. Tal -->
+      <div class="work-row" onclick="location.href='project_tal.html'" style="cursor:pointer;">
+        <div class="wr-num">005</div>
+        <div class="wr-body">
+          <p class="wr-title"><em>Tal: Shout for Freedom</em></p>
+          <p class="wr-role">Lead Costume Designer + Makeup & Hair</p>
+        </div>
+        <div class="wr-meta">
+          2024<br>Namsan Afro Stage
+          <span class="wr-badge pink">National Festival</span>
+          <span style="font-size:10px;margin-top:4px;display:block;">View details →</span>
+        </div>
+      </div>
+      <!-- 6. 30mg -->
+      <div class="work-row" onclick="location.href='project_30mg.html'" style="cursor:pointer;">
+        <div class="wr-num">006</div>
+        <div class="wr-body">
+          <p class="wr-title"><em>30 Milligrams of Ulipristal</em></p>
+          <p class="wr-role">Props · Sound · Stage Manager &nbsp;·&nbsp; w/ Benni Pigoni (IT)</p>
+        </div>
+        <div class="wr-meta">2024<br>Namsan Drama Centre<br><span style="font-size:10px;margin-top:4px;display:block;">View details →</span></div>
+      </div>
+      <!-- 7. I Want to See -->
+      <div class="work-row" onclick="location.href='project_immersive.html'" style="cursor:pointer;">
+        <div class="wr-num">007</div>
+        <div class="wr-body">
+          <p class="wr-title"><em>I Want to See My Parents' Faces</em></p>
+          <p class="wr-role">Stage Manager — Immersive / Site-specific</p>
+        </div>
+        <div class="wr-meta">2024<br>Ansan<br><span style="font-size:10px;margin-top:4px;display:block;">View details →</span></div>
+      </div>
+      <!-- 8. Can't Pay -->
+      <div class="work-row" onclick="location.href='project_cantpay.html'" style="cursor:pointer;">
+        <div class="wr-num">008</div>
+        <div class="wr-body">
+          <p class="wr-title"><em>Can't Pay? Won't Pay!</em></p>
+          <p class="wr-role">Assistant Director + Script Translator</p>
+        </div>
+        <div class="wr-meta">2024<br>Namsan Drama Centre<br><span style="font-size:10px;margin-top:4px;display:block;">View details →</span></div>
+      </div>
+      <!-- 9. Feel the Burning Light -->
+      <div class="work-row" onclick="location.href='project_ftbl.html'" style="cursor:pointer;">
+        <div class="wr-num">009</div>
+        <div class="wr-body">
+          <p class="wr-title">Director's LAB — <em>Feel the Burning Light</em> (Team. 4 Toilets)</p>
+          <p class="wr-role">Assistant Director / Project Planner</p>
+        </div>
+        <div class="wr-meta">2024<br>Artforest Theatre<br><span style="font-size:10px;margin-top:4px;display:block;">View details →</span></div>
+      </div>
+      <!-- 10. Assistant -->
+      <div class="work-row" onclick="location.href='project_assistant.html'" style="cursor:pointer;">
+        <div class="wr-num">010</div>
+        <div class="wr-body">
+          <p class="wr-title">Assistant Roles — Song of Cheoyong · Hinkey · Good Person · L!DAR · 多音</p>
+          <p class="wr-role">Costume / Props / Stage / Sound Assistant</p>
+        </div>
+        <div class="wr-meta">2023–2024<br>Multiple venues<br><span style="font-size:10px;margin-top:4px;display:block;">View details →</span></div>
+      </div>
+      <!-- 11. Soran MV -->
+      <div class="work-row" onclick="location.href='project_soran.html'" style="cursor:pointer;">
+        <div class="wr-num">011</div>
+        <div class="wr-body">
+          <p class="wr-title"><em>Soran</em> (騷亂) — Music Video</p>
+          <p class="wr-role">Lead Costume Designer</p>
+        </div>
+        <div class="wr-meta">2024–25<br>Team Talmude<br><span style="font-size:10px;margin-top:4px;display:block;">View details →</span></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about-sec">
+      <div class="sec-bar">
+        <div class="sec-bar-num">02</div>
+        <div class="sec-bar-title">About Me</div>
+      </div>
+      <div class="about-col">
+        <p class="ab-tag">Adaptability</p>
+        <h3 class="ab-title">Across cultures &amp; roles</h3>
+        <div class="ab-point">
+          <p class="ab-pt-key">International collaboration</p>
+          <p class="ab-pt-val">Worked alongside Italian artist Benni Pigoni on <em>30 Milligrams of Ulipristal</em> — my first direct creative collaboration with a foreign artist outside an academic setting. Bridging language and creative intent between both sides taught me a new kind of precision in communication.</p>
+        </div>
+        <div class="ab-point">
+          <p class="ab-pt-key">Multi-role flexibility</p>
+          <p class="ab-pt-val">With one stage manager covering multiple productions simultaneously, I moved between props and stage ASM duties in parallel — staying responsive across shifting demands.</p>
+        </div>
+      </div>
+      <div class="about-col">
+        <p class="ab-tag">Initiative</p>
+        <h3 class="ab-title">Stepping up</h3>
+        <div class="ab-point">
+          <p class="ab-pt-key">HanShin Machine Industry</p>
+          <p class="ab-pt-val">Led final PPT design and research for a capstone project with HanShin Machine Industry — site visits, challenge identification, and AI-based promotional video production.</p>
+        </div>
+        <div class="ab-point">
+          <p class="ab-pt-key">Planning &amp; marketing</p>
+          <p class="ab-pt-val">As planning team member: house management, audience ticketing, scheduling, and marketing strategy — developing a producer's perspective from the audience side.</p>
+        </div>
+      </div>
+      <div class="about-col" style="border-bottom:none;">
+        <p class="ab-tag">Together</p>
+        <h3 class="ab-title">150+ team meetings</h3>
+        <div class="ab-point">
+          <p class="ab-pt-key">Bridging teams</p>
+          <p class="ab-pt-val">Both in Korean planning teams and at Kingston University's TV Production module, I've consistently been the person in the middle — coordinating between directors, staff, and performers across languages and cultures.</p>
+        </div>
+        <div class="ab-point">
+          <p class="ab-pt-key">Conflict as part of the process</p>
+          <p class="ab-pt-val">Over 3 years and 150+ sessions, I learned that disagreement isn't failure — it's where real decisions get made. Listen first, find common ground, move forward.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills-sec">
+      <div class="sec-bar">
+        <div class="sec-bar-num">03</div>
+        <div class="sec-bar-title">Skills</div>
+      </div>
+      <div class="skills-grid">
+        <div class="sk-col">
+          <p class="sk-label">Direction &amp; Production</p>
+          <div class="sk-item"><span class="sk-name">Assistant Director</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span class="on"></span></span></div>
+          <div class="sk-item"><span class="sk-name">Co-Direction</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span></span></span></div>
+          <div class="sk-item"><span class="sk-name">Stage Management</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span class="on"></span></span></div>
+          <div class="sk-item"><span class="sk-name">House Management</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span class="on"></span></span></div>
+          <div class="sk-item"><span class="sk-name">Cue Sheet Writing</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span class="on"></span></span></div>
+          <div class="sk-item"><span class="sk-name">TV Production</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span></span></span></div>
+        </div>
+        <div class="sk-col">
+          <p class="sk-label">Design &amp; Creative</p>
+          <div class="sk-item"><span class="sk-name">Costume Design</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span class="on"></span></span></div>
+          <div class="sk-item"><span class="sk-name">Art Direction</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span></span></span></div>
+          <div class="sk-item"><span class="sk-name">Set Design</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span></span></span></div>
+          <div class="sk-item"><span class="sk-name">Makeup &amp; Styling</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span></span></span></div>
+          <div class="sk-item"><span class="sk-name">Props Management</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span class="on"></span></span></div>
+          <div class="sk-item"><span class="sk-name">Sound Operation</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span></span></span></div>
+        </div>
+        <div class="sk-col">
+          <p class="sk-label">Tools</p>
+          <ul class="sk-bullets">
+            <li>Adobe Photoshop &amp; Illustrator</li>
+            <li>Midjourney · Kling · CapCut</li>
+            <li>PowerPoint / Keynote</li>
+            <li>Cross-team coordination</li>
+            <li>Arts marketing &amp; PR</li>
+          </ul>
+        </div>
+        <div class="sk-col">
+          <p class="sk-label">Language</p>
+          <div class="sk-item"><span class="sk-name">English</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span class="on"></span></span></div>
+          <div class="sk-item"><span class="sk-name">Korean — Native</span><span class="sk-pips"><span class="on"></span><span class="on"></span><span class="on"></span></span></div>
+    
+          <p style="font-size:8px;color:var(--soft);margin-top:12px;line-height:1.8;">OPIc AL (Aug 2024)<br>IELTS 6.5 (Apr 2025)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume-sec">
+      <div class="sec-bar">
+        <div class="sec-bar-num">04</div>
+        <div class="sec-bar-title">Education &amp; Training</div>
+      </div>
+      <div class="res-grid">
+        <div class="res-col">
+          <p class="res-label">Education</p>
+          <div class="res-item">
+            <p class="res-title">Kingston University</p>
+            <p class="res-sub">BA in Media Skills</p>
+            <p class="res-date">Sep 2025 – Jul 2026 (Expected) · London</p>
+            <p class="res-desc">Symposium Design Team Lead · TV Production MD6017</p>
+          </div>
+          <div class="res-item">
+            <p class="res-title">Seoul Institute of the Arts</p>
+            <p class="res-sub">BA in Advertising Creation — Graduated</p>
+            <p class="res-date">Mar 2022 – Feb 2025 · Seoul</p>
+          </div>
+          <div class="res-item">
+            <p class="res-title">Yongin Hongcheon High School</p>
+            <p class="res-date">Mar 2018 – Feb 2020</p>
+          </div>
+        </div>
+        <div class="res-col">
+          <p class="res-label">Training &amp; Certifications</p>
+          <div class="res-item">
+            <p class="res-title">Costume Technician Workshop 'FIT'</p>
+            <p class="res-sub">Professional Training</p>
+            <p class="res-date">Apr – Oct 2023</p>
+            <p class="res-desc">Basic to advanced — design through to production.</p>
+          </div>
+          <div class="res-item">
+            <p class="res-title">OPIc AL</p>
+            <p class="res-sub">English — Advanced Low</p>
+            <p class="res-date">Aug 2024</p>
+            <span class="cert-chip">Advanced Low</span>
+          </div>
+          <div class="res-item">
+            <p class="res-title">IELTS 6.5</p>
+            <p class="res-sub">English — Band 6.5</p>
+            <p class="res-date">Apr 2025</p>
+            <span class="cert-chip">Band 6.5</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact-sec">
+      <div class="sec-bar">
+        <div class="sec-bar-num">05</div>
+        <div class="sec-bar-title">Contact</div>
+      </div>
+      <div class="contact-wrap">
+        <h2 class="contact-hl">Open to<br><em>collaboration.</em></h2>
+        <p class="contact-sub">Assistant direction, stage management, arts management, production coordination — Seoul, London, or internationally.</p>
+        <div class="ct-row">
+          <p class="ct-key">Email</p>
+          <p class="ct-val"><a href="mailto:seowon020910@gmail.com">seowon020910@gmail.com</a></p>
+        </div>
+        <div class="ct-row">
+          <p class="ct-key">Phone</p>
+          <p class="ct-val">
+            <a href="tel:+4407399312743">+44 07399 312 743</a> &nbsp;/&nbsp;
+            <a href="tel:+821092583154">+82 10 9258 3154</a>
+          </p>
+        </div>
+        <div class="ct-row">
+          <p class="ct-key">Notion</p>
+          <p class="ct-val"><a href="https://splashy-monitor-8fa.notion.site/Hello-I-m-SEOWON-HEO-2a962b377a36801a9430ee6e28bf6cfc" target="_blank">Full Portfolio ↗</a></p>
+        </div>
+        <div class="ct-row">
+          <p class="ct-key">Available For</p>
+          <div class="av-chips">
+            <span class="av-chip">Asst. Director</span>
+            <span class="av-chip">Stage Manager</span>
+            <span class="av-chip">Arts Manager</span>
+            <span class="av-chip">Production Coord.</span>
+            <span class="av-chip">Art Director</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- end content-left -->
+
+  <!-- ── RIGHT STICKY ── -->
+  <div class="sticky-right">
+    <div class="sticky-unicorn">
+      <img src="unicorn_lying2.jpg" alt="ETB — textile unicorn, State: Collapsed">
+      <div class="sticky-ui"></div>
+      <div class="sticky-label-top">
+        ETB / SYNFEEL<br>
+        State: Collapsed
+      </div>
+      <div class="sticky-label-bot">
+        Emotion Translation Bureau<br>
+        Kingston University · 2025
+      </div>
+    </div>
+    <div class="state-bar">
+      <div class="state-dot"></div>
+      <p class="state-text">System Active &nbsp;·&nbsp; Input Detected</p>
+    </div>
+  </div>
+
+</div><!-- end main-layout -->
+
+<footer>
+  <p>© 2025 Seowon Heo (Claire) — 허서원</p>
+  <p>Theatre &amp; Media Production &nbsp;·&nbsp; ETB / SYNFEEL</p>
+</footer>
+
+</body>
+</html>

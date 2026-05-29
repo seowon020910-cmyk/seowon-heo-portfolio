@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lehman Trilogy — Seowon Heo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf6f2;
+  --white: #ffffff;
+  --ink: #1a1410;
+  --mid: #5a5248;
+  --soft: #a09488;
+  --rule: rgba(26,20,16,0.1);
+  --rule2: rgba(26,20,16,0.05);
+  --accent: rgba(180,160,150,0.15);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Space Mono', monospace;
+  font-weight: 400;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  height: 46px;
+  display: flex; align-items:center; justify-content:space-between;
+  padding: 0 32px;
+  background: rgba(250,246,242,0.95);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-back {
+  font-size: 9px; letter-spacing:0.18em; text-transform:uppercase;
+  color: var(--soft); text-decoration:none;
+  display: flex; align-items:center; gap:8px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--ink); }
+.nav-back::before { content:'←'; font-size:12px; }
+.nav-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; font-style:italic; color: var(--mid);
+}
+.nav-num {
+  font-size: 9px; letter-spacing:0.15em; color: var(--soft);
+}
+
+/* ── HERO ── */
+.project-hero {
+  padding-top: 46px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 70vh;
+  border-bottom: 1px solid var(--rule);
+}
+.ph-left {
+  padding: 60px 48px;
+  display: flex; flex-direction:column; justify-content:center;
+  border-right: 1px solid var(--rule);
+}
+.ph-tag {
+  font-size: 9px; letter-spacing:0.25em; text-transform:uppercase;
+  color: var(--soft); margin-bottom:20px;
+  display:flex; align-items:center; gap:10px;
+}
+.ph-tag::before { content:''; width:20px; height:1px; background:var(--soft); }
+.ph-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 300; line-height: 0.95;
+  letter-spacing: -0.02em; margin-bottom: 20px;
+}
+.ph-title em { font-style:italic; }
+.ph-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; font-style:italic;
+  color: var(--mid); margin-bottom:36px; line-height:1.7;
+}
+.ph-meta-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; border: 1px solid var(--rule);
+}
+.ph-meta-item {
+  padding: 14px 18px;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.ph-meta-item:nth-child(even) { border-right:none; }
+.ph-meta-item:nth-last-child(-n+2) { border-bottom:none; }
+.pm-key {
+  font-size: 8px; letter-spacing:0.18em; text-transform:uppercase;
+  color: var(--soft); margin-bottom:4px;
+}
+.pm-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; font-style:italic; color: var(--mid);
+}
+
+.ph-right {
+  background: #f0ebe4;
+  position: relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.ph-right-placeholder {
+  text-align:center;
+  padding:40px;
+}
+.ph-right-placeholder p {
+  font-size: 9px; letter-spacing:0.15em; text-transform:uppercase;
+  color: var(--soft); line-height:2;
+}
+.ph-img {
+  width:100%; height:100%; object-fit:cover;
+}
+
+/* ── BODY ── */
+.project-body {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* section */
+.p-section {
+  border-bottom: 1px solid var(--rule);
+  padding: 56px 48px;
+}
+.p-section:last-child { border-bottom:none; }
+
+.ps-eyebrow {
+  font-size: 9px; letter-spacing:0.22em; text-transform:uppercase;
+  color: var(--soft); margin-bottom:12px;
+  display:flex; align-items:center; gap:10px;
+}
+.ps-eyebrow::before { content:''; width:16px; height:1px; background:var(--soft); }
+
+.ps-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; font-weight:300; font-style:italic;
+  margin-bottom: 28px;
+}
+
+.ps-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; line-height:1.9; color:var(--mid);
+  max-width: 68ch;
+}
+.ps-body p { margin-bottom:14px; }
+.ps-body p:last-child { margin-bottom:0; }
+.ps-body strong { font-weight:400; color:var(--ink); }
+
+/* two col */
+.two-col {
+  display: grid; grid-template-columns:1fr 1fr; gap:48px;
+  align-items:start;
+}
+
+/* quote block */
+.quote-block {
+  border-left: 2px solid var(--rule);
+  padding: 16px 0 16px 24px;
+  margin: 24px 0;
+}
+.quote-block p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem; font-style:italic;
+  color: var(--mid); line-height:1.8;
+}
+
+/* process steps */
+.process-steps { list-style:none; }
+.ps-step {
+  display: grid; grid-template-columns:40px 1fr;
+  gap:16px; padding:20px 0;
+  border-bottom: 1px solid var(--rule2);
+}
+.ps-step:last-child { border-bottom:none; }
+.ps-step-num {
+  font-size: 9px; letter-spacing:0.1em; color:var(--soft);
+  padding-top:3px;
+}
+.ps-step-body {}
+.ps-step-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; font-style:italic; margin-bottom:6px;
+}
+.ps-step-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:1rem; color:var(--mid); line-height:1.8;
+}
+
+/* keywords */
+.keywords { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.kw {
+  font-size: 8px; letter-spacing:0.12em; text-transform:uppercase;
+  padding: 4px 14px; border-radius:100px;
+  border: 1px solid var(--rule); color:var(--mid);
+  background: var(--white);
+}
+
+/* image placeholder grid */
+.img-grid-2 {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px;
+  margin:24px 0;
+}
+.img-grid-3 {
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;
+  margin:24px 0;
+}
+.img-placeholder {
+  aspect-ratio:4/3;
+  background: #ede8e0;
+  border: 1px solid var(--rule);
+  display:flex; align-items:center; justify-content:center;
+  border-radius:2px;
+}
+.img-placeholder p {
+  font-size:8px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--soft); text-align:center; padding:12px; line-height:1.8;
+}
+.img-caption {
+  font-size: 8px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--soft); margin-top:-4px; margin-bottom:20px;
+  padding-left:4px;
+}
+
+/* achievement box */
+.achievement-box {
+  background: var(--accent);
+  border: 1px solid var(--rule);
+  padding: 28px 32px;
+  border-radius:2px;
+}
+.achievement-box p {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.1rem; line-height:1.85; color:var(--mid);
+}
+
+/* links row */
+.links-row {
+  display:flex; flex-wrap:wrap; gap:12px; margin-top:24px;
+}
+.proj-link {
+  font-size: 9px; letter-spacing:0.14em; text-transform:uppercase;
+  padding: 8px 20px; border:1px solid var(--rule);
+  color: var(--mid); text-decoration:none;
+  background: var(--white); transition:all 0.2s;
+}
+.proj-link:hover { background:var(--ink); color:var(--cream); border-color:var(--ink); }
+
+/* next project */
+.next-project {
+  border-top: 1px solid var(--rule);
+  padding: 40px 48px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.np-label { font-size:8px; letter-spacing:0.2em; text-transform:uppercase; color:var(--soft); }
+.np-title {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.5rem; font-style:italic; margin-top:6px;
+}
+.np-link {
+  font-size:9px; letter-spacing:0.15em; text-transform:uppercase;
+  color:var(--mid); text-decoration:none;
+  display:flex; align-items:center; gap:8px;
+  transition:color 0.2s;
+}
+.np-link:hover { color:var(--ink); }
+.np-link::after { content:'→'; font-size:14px; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .project-hero { grid-template-columns:1fr; }
+  .ph-left { padding:40px 24px; border-right:none; border-bottom:1px solid var(--rule); }
+  .ph-right { min-height:300px; }
+  .p-section { padding:40px 24px; }
+  .two-col { grid-template-columns:1fr; gap:24px; }
+  .img-grid-2,.img-grid-3 { grid-template-columns:1fr; }
+  .next-project { padding:32px 24px; flex-direction:column; gap:20px; align-items:flex-start; }
+  nav { padding:0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="seowon_portfolio_v7.html" class="nav-back">Back to Portfolio</a>
+  <span class="nav-title">The Lehman Trilogy</span>
+  <span class="nav-num">001 / 017</span>
+</nav>
+
+<!-- ── PROJECT HERO ── -->
+<div class="project-hero">
+  <div class="ph-left">
+    <p class="ph-tag">Theatre Production Workshop · 2023</p>
+    <h1 class="ph-title"><em>The Lehman<br>Trilogy</em></h1>
+    <p class="ph-subtitle">Costume design visualising capitalism and generational transition through fabric, colour, and silhouette.</p>
+
+    <div class="ph-meta-grid">
+      <div class="ph-meta-item">
+        <p class="pm-key">Role</p>
+        <p class="pm-val">Lead Costume Designer</p>
+      </div>
+      <div class="ph-meta-item">
+        <p class="pm-key">Duration</p>
+        <p class="pm-val">Mar – Jun 2023</p>
+      </div>
+      <div class="ph-meta-item">
+        <p class="pm-key">Venue</p>
+        <p class="pm-val">Namsan Drama Centre, Seoul</p>
+      </div>
+      <div class="ph-meta-item">
+        <p class="pm-key">Collaborators</p>
+        <p class="pm-val">Tom Lee (Director / Visual Artist)</p>
+      </div>
+      <div class="ph-meta-item">
+        <p class="pm-key">Type</p>
+        <p class="pm-val">Theatre / Costume & Stage Design</p>
+      </div>
+      <div class="ph-meta-item">
+        <p class="pm-key">Performers</p>
+        <p class="pm-val">19 cast members</p>
+      </div>
+    </div>
+
+    <div class="keywords">
+      <span class="kw">Visual Narrative</span>
+      <span class="kw">Fabric Construction</span>
+      <span class="kw">Quick Change</span>
+      <span class="kw">Character Transformation</span>
+      <span class="kw">Industrial Aesthetic</span>
+      <span class="kw">Projection Mapping</span>
+    </div>
+  </div>
+
+  <div class="ph-right" style="background:#1a1a1a;">
+    <img src="lehman_poster.jpg" alt="The Lehman Trilogy — Poster" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+  </div>
+</div>
+
+<!-- ── PROJECT BODY ── -->
+<div class="project-body">
+
+  <!-- Overview -->
+  <div class="p-section">
+    <p class="ps-eyebrow">Background & Objective</p>
+    <h2 class="ps-title">Visualising capitalism through costume</h2>
+    <div class="two-col">
+      <div class="ps-body">
+        <p>This project was developed as part of the <strong>Theatre Production Workshop</strong> at the Seoul Institute of the Arts.</p>
+        <p>Inspired by <em>The Lehman Trilogy</em>, I explored how costume design could <strong>visualise the themes of capitalism and generational transition</strong> through fabric, colour, and silhouette.</p>
+        <p>Through this process, I deepened my understanding of costume production and <strong>stage collaboration</strong>, integrating visual and narrative elements to strengthen the overall performance storytelling.</p>
+      </div>
+      <div>
+        <div class="quote-block">
+          <p>"A costume design project reinterpreting The Lehman Trilogy through the lens of capitalism and human ambition — exploring how visual language can shape audience perception."</p>
+        </div>
+        <div style="margin-top:16px;">
+          <img src="lehman_title.jpg" alt="The Lehman Trilogy — Title" style="width:100%;object-fit:cover;border:1px solid var(--rule);">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Process -->
+  <div class="p-section">
+    <p class="ps-eyebrow">Process</p>
+    <h2 class="ps-title">From concept to stage</h2>
+    <ul class="process-steps">
+      <li class="ps-step">
+        <span class="ps-step-num">01</span>
+        <div class="ps-step-body">
+          <p class="ps-step-title">Concept & Design Direction</p>
+          <p class="ps-step-desc">Collaborated with international artist Tom Lee to visualise the overall concept, atmosphere, and spatial layout of the performance. Explored how physical structures, live video, and projection mapping could interact within the stage space — analysing the visual rhythm and emotional tone of the play to define the costume direction.</p>
+        </div>
+      </li>
+      <li class="ps-step">
+        <span class="ps-step-num">02</span>
+        <div class="ps-step-body">
+          <p class="ps-step-title">Workshop — Learning the Craft</p>
+          <p class="ps-step-desc">In the costume workshop, explored the fundamentals of fabric cutting, pattern drafting, and machine stitching — focusing on how different materials respond to movement and light. This stage built the technical foundation for how craftsmanship supports the visual and functional goals of costume design.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr ;gap:10px;margin:16px 0;"><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_workshop_1.jpg" alt="Sewing practice in workshop" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_workshop_2.jpg" alt="Fabric test samples" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_workshop_3.jpg" alt="Workshop process" style="width:100%;height:100%;object-fit:cover;display:block;"></div></div>
+          <p class="img-caption">Sewing practice and fabric test samples</p>
+        </div>
+      </li>
+      <li class="ps-step">
+        <span class="ps-step-num">03</span>
+        <div class="ps-step-body">
+          <p class="ps-step-title">Designing through Fabric</p>
+          <p class="ps-step-desc">Developed costume sketches reflecting each character's personality, narrative tone, and historical context. Each design explored silhouette and texture as a visual language to express transformation across the acts.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr ;gap:10px;margin:16px 0;"><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_sketch_1.jpg" alt="Costume sketch — character transition" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_sketch_2.jpg" alt="Costume sketch — historical tone" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_sketch_3.jpg" alt="Costume sketch — silhouette study" style="width:100%;height:100%;object-fit:cover;display:block;"></div></div>
+          <p class="img-caption">Costume sketches reflecting the characters' transition and historical tone</p>
+        </div>
+      </li>
+      <li class="ps-step">
+        <span class="ps-step-num">04</span>
+        <div class="ps-step-body">
+          <p class="ps-step-title">Rehearsal Fittings</p>
+          <p class="ps-step-desc">During rehearsal fittings, adjusted costumes for comfort, mobility, and visual harmony on stage. Feedback from the director and cast guided refinements in construction and detailing. Worked closely with performers to ensure each costume was comfortable, functional, and visually aligned with their movements.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr ;gap:10px;margin:16px 0;"><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_fitting_1.jpg" alt="Fitting — costume check with cast" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_fitting_2.jpg" alt="Workshop materials and dyes" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_fitting_3.jpg" alt="Backstage costume rail setup" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_fitting_4.jpg" alt="Pattern pieces and fabric cutting" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;"></div></div>
+          <p class="img-caption">Rehearsal fitting and costume adjustment photos</p>
+        </div>
+      </li>
+      <li class="ps-step">
+        <span class="ps-step-num">05</span>
+        <div class="ps-step-body">
+          <p class="ps-step-title">Technical Rehearsal & Performance Setup</p>
+          <p class="ps-step-desc">During the technical rehearsal week, refined costume details in response to lighting and stage conditions — ensuring colour, texture, and materials behaved consistently under various lighting cues. Prepared identical costume presets for each performer before dress rehearsal, and coordinated the quick-change chart across four consecutive performances.</p>
+          <div style="margin:16px 0;border:1px solid var(--rule);overflow:hidden;"><img src="lehman_setup.jpg" alt="Costume team production status document" style="width:100%;display:block;object-fit:cover;"></div>
+          <p class="img-caption">Quick-change preparation and backstage setup</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Meetings & Documentation -->
+  <div class="p-section">
+    <p class="ps-eyebrow">Documentation</p>
+    <h2 class="ps-title">Rehearsal logs & meeting records</h2>
+    <div class="two-col">
+      <div>
+        <p class="ps-step-title" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;margin-bottom:12px;">Rehearsal Reports</p>
+        <div class="ps-body">
+          <p>Worked closely with performers during rehearsal to ensure costumes were comfortable, functional, and visually aligned with their movements. Feedback from the director and professors was promptly reflected in the design — allowing for efficient preparation ahead of the final performance.</p>
+        </div>
+        <div class="img-grid-2" style="margin-top:16px;">
+          <div class="img-placeholder"><p>Rehearsal report<br>3 Jun 2023</p></div>
+          <div class="img-placeholder"><p>Rehearsal report<br>detail</p></div>
+        </div>
+      </div>
+      <div>
+        <p class="ps-step-title" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;margin-bottom:12px;">Production Meeting Logs</p>
+        <div class="ps-body">
+          <p>During production meetings, discussed how lighting and costume colours would interact on stage and shared feedback with the lighting and directing teams. These meetings helped identify and prevent potential stage accidents related to costume movement, while improving costume quality through regular review.</p>
+        </div>
+        <div class="img-grid-2" style="margin-top:16px;">
+          <div class="img-placeholder"><p>Meeting log<br>18 May 2023</p></div>
+          <div class="img-placeholder"><p>Meeting log<br>detail</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final Costumes -->
+  <div class="p-section">
+    <p class="ps-eyebrow">Result</p>
+    <h2 class="ps-title">Final costume photos</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr ;gap:10px;margin:16px 0;"><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_perf_1.jpg" alt="Performance — ensemble in period costume" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_perf_2.jpg" alt="Performance — protest scene with suit costumes" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_perf_3.jpg" alt="Performance — full ensemble" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;"></div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr ;gap:10px;margin:16px 0;"><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_perf_4.jpg" alt="Performance — office scene costumes" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_perf_5.jpg" alt="Performance — boardroom scene" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_perf_6.jpg" alt="Performance — dark suit ensemble" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="lehman_perf_7.jpg" alt="Performance — bowing curtain call" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;"></div></div>
+  </div>
+
+  <!-- Achievements -->
+  <div class="p-section">
+    <p class="ps-eyebrow">Achievements & Reflections</p>
+    <h2 class="ps-title">What I learned</h2>
+    <div class="achievement-box">
+      <p>Within four months, I prepared costumes for <strong>19 performers</strong> — developing my own design perspective through script analysis and collaborative production. I learned sewing and sketching techniques under tight deadlines, and gained a deep appreciation for teamwork and communication in theatre production. Working with director Tom Lee introduced me to the intersection of live performance, projection mapping, and visual design — a perspective I carry into every production since.</p>
+    </div>
+
+    <div class="links-row" style="margin-top:32px;">
+      <a href="https://www.instagram.com/sia_lehmantrilogy" target="_blank" class="proj-link">Instagram @sia_lehmantrilogy ↗</a>
+      <div style="margin-top:12px;"><img src="lehman_qr.jpg" alt="Instagram QR — sia_lehmantrilogy" style="width:120px;border:1px solid var(--rule);"></div>
+      <span class="proj-link" style="cursor:default;opacity:0.5;">Programme Book (PDF)</span>
+      <span class="proj-link" style="cursor:default;opacity:0.5;">Costume Presentation (PDF)</span>
+      <a href="lehman_quickchange.pdf" target="_blank" class="proj-link">Costume Quick-Change List (PDF) ↗</a>
+    </div>
+  </div>
+
+</div><!-- end project-body -->
+
+<!-- ── NEXT PROJECT ── -->
+<div class="next-project">
+  <div>
+    <p class="np-label">Next Production</p>
+    <p class="np-title"><em>Over Sleep</em> — Young Creators' Musical</p>
+  </div>
+  <a href="seowon_portfolio_v7.html" class="np-link">Back to all work</a>
+</div>
+
+</body>
+</html>

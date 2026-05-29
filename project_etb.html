@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETB — Emotion Translation Bureau · Seowon Heo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf6f2;
+  --white: #fff;
+  --ink: #1a1410;
+  --mid: #5a5248;
+  --soft: #a09488;
+  --rule: rgba(26,20,16,0.1);
+  --rule2: rgba(26,20,16,0.05);
+  --accent: rgba(180,160,150,0.15);
+  --lav: #e8e4f4;
+  --lav2: #c8c0e8;
+  --pink: #f4e4ec;
+  --pink2: #d8a8c0;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--cream); color:var(--ink); font-family:'Space Mono',monospace; }
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  height:46px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 32px; background:rgba(250,246,242,0.95);
+  backdrop-filter:blur(14px); border-bottom:1px solid var(--rule);
+}
+.nav-back { font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--soft); text-decoration:none; display:flex; align-items:center; gap:8px; transition:color .2s; }
+.nav-back:hover { color:var(--ink); }
+.nav-back::before { content:'←'; font-size:12px; }
+.nav-title { font-family:'Cormorant Garamond',serif; font-size:1rem; font-style:italic; color:var(--mid); }
+.nav-num { font-size:9px; letter-spacing:.15em; color:var(--soft); }
+
+/* ── HERO ── */
+.fmp-hero {
+  padding-top:46px;
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  border-bottom:1px solid var(--rule);
+}
+.fh-left {
+  padding:60px 48px;
+  display:flex; flex-direction:column; justify-content:center;
+  border-right:1px solid var(--rule);
+}
+.fh-tag {
+  font-size:9px; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--soft); margin-bottom:20px;
+  display:flex; align-items:center; gap:10px;
+}
+.fh-tag::before { content:''; width:20px; height:1px; background:var(--soft); }
+.fh-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:300; line-height:.92; letter-spacing:-.02em; margin-bottom:16px;
+}
+.fh-title em { font-style:italic; }
+.fh-synfeel {
+  font-size:9px; letter-spacing:.25em; text-transform:uppercase;
+  color:var(--soft); margin-bottom:32px;
+}
+.fh-tagline {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem; font-style:italic; line-height:1.6;
+  color:var(--mid); margin-bottom:32px; max-width:44ch;
+  border-left:2px solid var(--rule); padding-left:20px;
+}
+.fh-meta-grid {
+  display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--rule);
+}
+.fhm {
+  padding:14px 18px;
+  border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);
+}
+.fhm:nth-child(even) { border-right:none; }
+.fhm:nth-last-child(-n+2) { border-bottom:none; }
+.fhk { font-size:8px; letter-spacing:.18em; text-transform:uppercase; color:var(--soft); margin-bottom:4px; }
+.fhv { font-family:'Cormorant Garamond',serif; font-size:.95rem; font-style:italic; color:var(--mid); }
+.kws { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.kw { font-size:8px; letter-spacing:.12em; text-transform:uppercase; padding:4px 14px; border-radius:100px; border:1px solid var(--rule); color:var(--mid); background:var(--white); }
+
+.fh-right {
+  background:#f0ebe4;
+  position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.fh-right img { width:100%; height:100%; object-fit:cover; }
+.fh-right-placeholder { text-align:center; padding:40px; }
+.fh-right-placeholder p { font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:var(--soft); line-height:2; }
+
+/* ── BODY ── */
+.pb { max-width:1200px; margin:0 auto; }
+
+.ps { border-bottom:1px solid var(--rule); padding:56px 48px; }
+.ps:last-child { border-bottom:none; }
+
+.ey {
+  font-size:9px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--soft); margin-bottom:12px;
+  display:flex; align-items:center; gap:10px;
+}
+.ey::before { content:''; width:16px; height:1px; background:var(--soft); }
+.pt { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; font-style:italic; margin-bottom:28px; }
+
+.pb2 { font-family:'Cormorant Garamond',serif; font-size:1.1rem; line-height:1.9; color:var(--mid); max-width:68ch; }
+.pb2 p { margin-bottom:14px; }
+.pb2 p:last-child { margin-bottom:0; }
+.pb2 strong { font-weight:400; color:var(--ink); }
+.pb2 em { font-style:italic; }
+
+.tc { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
+.tc3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:32px; }
+
+.qb { border-left:2px solid var(--rule); padding:16px 0 16px 24px; margin:24px 0; }
+.qb p { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-style:italic; color:var(--mid); line-height:1.8; }
+
+/* core equation */
+.equation {
+  display:flex; align-items:center; gap:0;
+  margin:28px 0; flex-wrap:wrap;
+}
+.eq-box {
+  padding:12px 20px;
+  border:1px solid var(--rule);
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem; font-style:italic;
+  color:var(--mid); background:var(--white);
+}
+.eq-arrow {
+  font-size:1.2rem; color:var(--soft); padding:0 10px;
+}
+
+/* research questions */
+.rq-list { list-style:none; margin:20px 0; }
+.rq-item {
+  display:grid; grid-template-columns:24px 1fr;
+  gap:12px; padding:16px 0; border-bottom:1px solid var(--rule2);
+}
+.rq-item:last-child { border-bottom:none; }
+.rq-num { font-size:8px; letter-spacing:.12em; color:var(--soft); padding-top:4px; }
+.rq-text { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-style:italic; color:var(--mid); line-height:1.6; }
+
+/* methodology cards */
+.method-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:24px 0; }
+.method-card {
+  border:1px solid var(--rule); padding:24px 20px; background:var(--white);
+  border-radius:2px;
+}
+.mc-num { font-size:8px; letter-spacing:.15em; color:var(--soft); margin-bottom:8px; }
+.mc-title { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-style:italic; margin-bottom:10px; }
+.mc-body { font-size:9px; color:var(--mid); line-height:1.85; }
+.mc-body em { font-style:italic; color:var(--ink); }
+
+/* scene timeline */
+.scene-list { list-style:none; }
+.scene-item {
+  display:grid; grid-template-columns:100px 1fr;
+  gap:0; border-bottom:1px solid var(--rule);
+}
+.scene-item:last-child { border-bottom:none; }
+.si-label {
+  padding:24px 20px;
+  border-right:1px solid var(--rule);
+  font-size:8px; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--soft); display:flex; flex-direction:column; gap:4px;
+}
+.si-num { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-style:italic; color:var(--ink); }
+.si-body { padding:24px 28px; }
+.si-title { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-style:italic; margin-bottom:8px; }
+.si-desc { font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--mid); line-height:1.8; }
+.si-system {
+  margin-top:10px; padding:10px 14px;
+  background:var(--lav); border:1px solid var(--lav2);
+  font-size:9px; letter-spacing:.1em; color:#6060a0;
+}
+
+/* state cards — TORN / INFLATED / THINNED / COLLAPSED */
+.state-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--rule); margin:20px 0; }
+.state-card { padding:24px 20px; }
+.state-card[data-s="torn"]      { background:#fde8e8; }
+.state-card[data-s="inflated"]  { background:#fdeee0; }
+.state-card[data-s="thinned"]   { background:#e8f0f8; }
+.state-card[data-s="collapsed"] { background:var(--lav); }
+.sc-label { font-size:8px; letter-spacing:.2em; text-transform:uppercase; color:var(--soft); margin-bottom:8px; }
+.sc-name { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-style:italic; margin-bottom:8px; }
+.state-card[data-s="torn"] .sc-name { color:#b05050; }
+.state-card[data-s="inflated"] .sc-name { color:#a07040; }
+.state-card[data-s="thinned"] .sc-name { color:#507090; }
+.state-card[data-s="collapsed"] .sc-name { color:#706090; }
+.sc-desc { font-size:9px; color:var(--mid); line-height:1.8; }
+
+/* material taxonomy */
+.mat-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin:20px 0; }
+.mat-item { background:var(--white); border:1px solid var(--rule); padding:16px 10px; text-align:center; border-radius:2px; }
+.mat-icon { font-size:1.3rem; margin-bottom:6px; }
+.mat-label { font-size:8px; letter-spacing:.1em; text-transform:uppercase; color:var(--mid); line-height:1.4; }
+.mat-meaning { font-size:8px; color:var(--soft); margin-top:4px; font-style:italic; font-family:'Cormorant Garamond',serif; }
+
+/* context boxes */
+.context-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0; }
+.ctx-box { border:1px solid var(--rule); padding:24px; background:var(--white); }
+.ctx-tag { font-size:8px; letter-spacing:.18em; text-transform:uppercase; color:var(--soft); margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--rule2); }
+.ctx-body { font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--mid); line-height:1.85; }
+
+/* distinction box */
+.distinction {
+  display:grid; grid-template-columns:1fr 1fr; gap:0;
+  border:1px solid var(--rule); margin:20px 0;
+}
+.dist-col { padding:28px 32px; }
+.dist-col:first-child { border-right:1px solid var(--rule); background:#fde8e8; }
+.dist-col:last-child { background:var(--lav); }
+.dist-label { font-size:8px; letter-spacing:.2em; text-transform:uppercase; color:var(--soft); margin-bottom:16px; }
+.dist-item { display:flex; align-items:baseline; gap:10px; padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.06); }
+.dist-item:last-child { border-bottom:none; }
+.dist-icon { font-size:10px; flex-shrink:0; }
+.dist-text { font-family:'Cormorant Garamond',serif; font-size:1.05rem; color:var(--mid); }
+
+/* video section */
+.video-wrap {
+  width:100%; border:1px solid var(--rule);
+  background:#0a0a0a; position:relative; overflow:hidden;
+}
+.video-wrap video {
+  width:100%; display:block; max-height:70vh;
+  object-fit:contain;
+}
+.video-placeholder {
+  aspect-ratio:16/9; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  background:#0a0a0a; gap:16px;
+}
+.vp-label { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,0.3); }
+.vp-title { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-style:italic; color:rgba(255,255,255,0.5); }
+.vp-note { font-size:8px; letter-spacing:.12em; color:rgba(255,255,255,0.2); text-transform:uppercase; margin-top:8px; }
+.video-caption { padding:12px 16px; border-top:1px solid var(--rule); }
+.video-caption p { font-size:8px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); }
+
+/* image grids */
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0; }
+.g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin:20px 0; }
+.ip { aspect-ratio:4/3; background:#ede8e0; border:1px solid var(--rule); display:flex; align-items:center; justify-content:center; border-radius:2px; }
+.ip p { font-size:8px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); text-align:center; padding:12px; line-height:1.8; }
+.ic { font-size:8px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); margin-top:-4px; margin-bottom:16px; padding-left:4px; }
+
+/* achievement */
+.ab { background:var(--accent); border:1px solid var(--rule); padding:28px 32px; border-radius:2px; }
+.ab p { font-family:'Cormorant Garamond',serif; font-size:1.1rem; line-height:1.85; color:var(--mid); margin-bottom:12px; }
+.ab p:last-child { margin-bottom:0; }
+
+/* professor quote */
+.prof-quote {
+  margin:28px 0; padding:28px 32px;
+  background:var(--lav); border:1px solid var(--lav2);
+}
+.pq-label { font-size:8px; letter-spacing:.2em; text-transform:uppercase; color:#8080b0; margin-bottom:10px; }
+.pq-text { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-style:italic; color:#4040a0; line-height:1.7; }
+
+/* links */
+.lr { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+.pl { font-size:9px; letter-spacing:.14em; text-transform:uppercase; padding:8px 20px; border:1px solid var(--rule); color:var(--mid); text-decoration:none; background:var(--white); transition:all .2s; }
+.pl:hover { background:var(--ink); color:var(--cream); border-color:var(--ink); }
+
+/* project nav */
+.pnav { border-top:1px solid var(--rule); padding:40px 48px; display:flex; justify-content:space-between; align-items:center; }
+.pl2 { font-size:8px; letter-spacing:.2em; text-transform:uppercase; color:var(--soft); margin-bottom:6px; }
+.pt2 { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-style:italic; }
+.pla { font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:var(--mid); text-decoration:none; display:flex; align-items:center; gap:8px; transition:color .2s; margin-top:8px; }
+.pla:hover { color:var(--ink); }
+.pla.next::after { content:'→'; font-size:14px; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .fmp-hero { grid-template-columns:1fr; }
+  .fh-left { padding:40px 24px; border-right:none; border-bottom:1px solid var(--rule); }
+  .fh-right { min-height:300px; }
+  .ps { padding:40px 24px; }
+  .tc, .tc3, .context-grid, .distinction { grid-template-columns:1fr; }
+  .distinction .dist-col:first-child { border-right:none; border-bottom:1px solid var(--rule); }
+  .method-grid { grid-template-columns:1fr 1fr; }
+  .state-grid { grid-template-columns:1fr 1fr; }
+  .mat-grid { grid-template-columns:repeat(3,1fr); }
+  .scene-item { grid-template-columns:1fr; }
+  .si-label { border-right:none; border-bottom:1px solid var(--rule); flex-direction:row; align-items:center; gap:12px; }
+  .g2, .g3 { grid-template-columns:1fr; }
+  .pnav { padding:32px 24px; flex-direction:column; gap:20px; align-items:flex-start; }
+  nav { padding:0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="seowon_portfolio_v7.html" class="nav-back">Back to Portfolio</a>
+  <span class="nav-title">Emotion Translation Bureau</span>
+  <span class="nav-num">FMP · 2025</span>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="fmp-hero">
+  <div class="fh-left">
+    <p class="fh-tag">Final Major Project · Kingston University · 2025</p>
+    <h1 class="fh-title">Emotion<br>Translation<br><em>Bureau</em></h1>
+    <p class="fh-synfeel">ETB &nbsp;/&nbsp; SYNFEEL</p>
+    <p class="fh-tagline">"Can emotion be translated as a system rather than expressed as a feeling?"</p>
+    <div class="fh-meta-grid">
+      <div class="fhm"><p class="fhk">Format</p><p class="fhv">AI-based Experimental Film · 8–10 min</p></div>
+      <div class="fhm"><p class="fhk">Tools</p><p class="fhv">Midjourney · Kling · CapCut</p></div>
+      <div class="fhm"><p class="fhk">Frame</p><p class="fhv">ETB (Academic) / SYNFEEL (Brand/Interface)</p></div>
+      <div class="fhm"><p class="fhk">Category</p><p class="fhv">Experimental Film · Media Art · Visual Systems</p></div>
+      <div class="fhm"><p class="fhk">Core Structure</p><p class="fhv">Emotion → Material → Structure → System</p></div>
+      <div class="fhm"><p class="fhk">Institution</p><p class="fhv">Kingston University, London · 2025</p></div>
+    </div>
+    <div class="kws">
+      <span class="kw">Affect Theory</span>
+      <span class="kw">System Design</span>
+      <span class="kw">Practice-based Research</span>
+      <span class="kw">Textile as Data</span>
+      <span class="kw">AI-assisted Production</span>
+      <span class="kw">Experimental Film</span>
+    </div>
+  </div>
+  <div class="fh-right">
+    <img src="etb_hero.jpg" alt="Emotion Translation Bureau — System Diagram" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+  </div>
+</div>
+
+<!-- ── BODY ── -->
+<div class="pb">
+
+  <!-- 1. Definition -->
+  <div class="ps">
+    <p class="ey">01 — Project Definition</p>
+    <h2 class="pt">Emotion as a translatable system</h2>
+    <div class="tc">
+      <div>
+        <div class="pb2">
+          <p><em>Emotion Translation Bureau (ETB)</em> treats emotion not as something to be <strong>felt or expressed</strong>, but as something that can be <strong>translated and processed</strong> — like data moving through a system.</p>
+          <p>Most work dealing with emotion uses story, expression, or language as its medium. This project takes a different position: emotion may be processable data — translatable through sensory material and structural change rather than narrative or representation.</p>
+        </div>
+        <div class="equation">
+          <div class="eq-box">Emotion</div>
+          <div class="eq-arrow">→</div>
+          <div class="eq-box">Material</div>
+          <div class="eq-arrow">→</div>
+          <div class="eq-box">Structure</div>
+          <div class="eq-arrow">→</div>
+          <div class="eq-box">System</div>
+        </div>
+        <div class="pb2">
+          <p>The central object of the film — a soft textile unicorn/horse form — functions not as a character but as an <strong>emotion container</strong>: a structure that receives input and produces varying outputs depending on its state.</p>
+        </div>
+      </div>
+      <div>
+        <div class="qb"><p>"Film allows the system to be experienced <em>temporally</em> rather than statically — the time-based structure of cinema makes state change visible in a way no other medium can."</p></div>
+        <div class="prof-quote">
+          <p class="pq-label">Academic Position</p>
+          <p class="pq-text">"This project situates emotion not as representation, but as a system of transformation."</p>
+        </div>
+        <div class="pb2" style="margin-top:20px;">
+          <p>The dual framing — <strong>ETB</strong> as academic research and <strong>SYNFEEL</strong> as brand/interface system — positions the work simultaneously as practice-based research and as a scalable design concept.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Research Questions -->
+  <div class="ps">
+    <p class="ey">02 — Research Questions</p>
+    <h2 class="pt">What this project is asking</h2>
+    <ul class="rq-list">
+      <li class="rq-item">
+        <span class="rq-num">RQ1</span>
+        <p class="rq-text">Can emotion be translated into a non-linguistic system — one that operates through material structure rather than words or images?</p>
+      </li>
+      <li class="rq-item">
+        <span class="rq-num">RQ2</span>
+        <p class="rq-text">Can emotional states be represented as structural changes — deformation, inflation, thinning, collapse — rather than as named feelings?</p>
+      </li>
+      <li class="rq-item">
+        <span class="rq-num">RQ3</span>
+        <p class="rq-text">Is it possible to build a system in which the same input produces different outputs — mirroring how human emotion actually works?</p>
+      </li>
+    </ul>
+    <div class="pb2" style="margin-top:24px;">
+      <p>These questions position the project at the intersection of <strong>affect theory</strong>, <strong>system design</strong>, and <strong>practice-based media research</strong> — a space rarely occupied by student experimental film work.</p>
+    </div>
+  </div>
+
+  <!-- 3. Methodology -->
+  <div class="ps">
+    <p class="ey">03 — Methodology</p>
+    <h2 class="pt">How the research is conducted</h2>
+    <div class="method-grid">
+      <div class="method-card">
+        <p class="mc-num">Method_01</p>
+        <p class="mc-title">Material-based Translation</p>
+        <p class="mc-body">Emotion is translated through textile — <em>lace, silk, organza, pearls, fabric layers</em> — treating texture as emotional data. Each material carries specific structural meaning rather than aesthetic value.</p>
+      </div>
+      <div class="method-card">
+        <p class="mc-num">Method_02</p>
+        <p class="mc-title">System-based Thinking</p>
+        <p class="mc-body">Emotion is defined as <em>state change</em>, not feeling. The work operates on rule-based variation: given the same input pressure, the system produces different structural outcomes — mirroring how emotion actually functions.</p>
+      </div>
+      <div class="method-card">
+        <p class="mc-num">Method_03</p>
+        <p class="mc-title">AI-assisted Production</p>
+        <p class="mc-body">Midjourney generates visual variants. Kling assists motion. CapCut structures the final film. <em>AI is used as a variation-testing instrument</em> — not as concept or author. The research question is human; the tool is computational.</p>
+      </div>
+      <div class="method-card">
+        <p class="mc-num">Method_04</p>
+        <p class="mc-title">Practice-based Research</p>
+        <p class="mc-body">The methodology follows a cycle: <em>production → analysis → revision → production</em>. Each iteration tests whether the visual output successfully communicates the system logic rather than a narrative or emotional mood.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Film / Video -->
+  <div class="ps">
+    <p class="ey">04 — The Film</p>
+    <h2 class="pt">Experimental film · 8–10 min</h2>
+
+    <!-- VIDEO EMBED -->
+    <div class="video-wrap" style="margin-bottom:16px;">
+      <video controls preload="metadata" poster="">
+        <source src="FMP_Final_Film_SeowonHeo_mp4.MOV" type="video/mp4">
+        <source src="FMP_Final_Film_SeowonHeo_mp4.MOV" type="video/quicktime">
+        <!-- fallback -->
+        <div class="video-placeholder">
+          <p class="vp-label">FMP — Final Major Project</p>
+          <p class="vp-title">Emotion Translation Bureau</p>
+          <p class="vp-note">Place FMP_Final_Film_SeowonHeo_mp4.MOV in the same folder to enable playback</p>
+        </div>
+      </video>
+      <div class="video-caption">
+        <p>Emotion Translation Bureau / SYNFEEL — Seowon Heo · Kingston University · 2025 · 8–10 min</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Scene Structure -->
+  <div class="ps">
+    <p class="ey">05 — Film Structure</p>
+    <h2 class="pt">The film as system proof</h2>
+    <div class="pb2" style="margin-bottom:28px;">
+      <p>This is not a mood film. It is a <strong>system demonstration</strong> — each scene serves a specific structural function in proving that emotion can be translated as a rule-based process.</p>
+    </div>
+    <ul class="scene-list">
+      <li class="scene-item">
+        <div class="si-label">
+          <span>Scene</span>
+          <span class="si-num">1–2</span>
+          <span>Data collection</span>
+        </div>
+        <div class="si-body">
+          <p class="si-title">Texture Accumulation</p>
+          <p class="si-desc">Lace, thread, fabric, fibre accumulate gradually. The environment forms from material. No narrative, no character — only texture building toward structure. This is the data collection phase: raw emotional material entering the system.</p>
+        </div>
+      </li>
+      <li class="scene-item">
+        <div class="si-label">
+          <span>Scene</span>
+          <span class="si-num">3</span>
+          <span>Structure generation</span>
+        </div>
+        <div class="si-body">
+          <p class="si-title">Form Emergence</p>
+          <p class="si-desc">The horse/unicorn form slowly materialises from accumulated textile. This is not a character being born — it is a <strong>structural container being assembled</strong>. The system is taking shape.</p>
+        </div>
+      </li>
+      <li class="scene-item">
+        <div class="si-label">
+          <span>Scene</span>
+          <span class="si-num">4</span>
+          <span>Input ready</span>
+        </div>
+        <div class="si-body">
+          <p class="si-title">Complete Form — Stable State</p>
+          <p class="si-desc">The textile horse exists in a complete, quiet form. This is not resolution — it is <strong>readiness</strong>. The system is prepared to receive input. The stability is temporary and conditional.</p>
+        </div>
+      </li>
+      <li class="scene-item" style="background:var(--lav);">
+        <div class="si-label">
+          <span>Scene</span>
+          <span class="si-num">5</span>
+          <span style="color:#8080c0;font-weight:bold;">CORE</span>
+        </div>
+        <div class="si-body">
+          <p class="si-title">SYSTEM MODE — Same Input, Different Outputs</p>
+          <p class="si-desc">The register shifts. Grid overlay, scan UI, system text, and calibration elements appear. The film moves from poetic to analytical. The same hand pressure is applied repeatedly — but the system produces four entirely different responses:</p>
+          <div class="state-grid" style="margin-top:16px;">
+            <div class="state-card" data-s="inflated">
+              <p class="sc-label">Output_01</p>
+              <p class="sc-name">Inflated</p>
+              <p class="sc-desc">Pressure accumulates without release. The structure swells beyond its original dimensions.</p>
+            </div>
+            <div class="state-card" data-s="torn">
+              <p class="sc-label">Output_02</p>
+              <p class="sc-name">Torn</p>
+              <p class="sc-desc">Structural fibres exceed tensile capacity. Overload becomes visible fracture.</p>
+            </div>
+            <div class="state-card" data-s="thinned">
+              <p class="sc-label">Output_03</p>
+              <p class="sc-name">Thinned</p>
+              <p class="sc-desc">Emotional energy depletes. The structure becomes translucent, fragile, exhausted.</p>
+            </div>
+            <div class="state-card" data-s="collapsed">
+              <p class="sc-label">Output_04</p>
+              <p class="sc-name">Collapsed</p>
+              <p class="sc-desc">Total structural failure. The state before any possible restructuring begins.</p>
+            </div>
+          </div>
+          <div class="si-system">★ SYSTEM PROOF: Same input → different outputs. This is how human emotion actually works.</div>
+        </div>
+      </li>
+      <li class="scene-item">
+        <div class="si-label">
+          <span>Scene</span>
+          <span class="si-num">6</span>
+          <span>Climax</span>
+        </div>
+        <div class="si-body">
+          <p class="si-title">Restructuring</p>
+          <p class="si-desc">The internal fibres realign. Loops rearrange. A new direction forms under pressure. This is not healing or recovery — it is <strong>reorganisation</strong>. The system adapts to a new configuration. Emotion does not return to its original state; it finds a new structure.</p>
+        </div>
+      </li>
+      <li class="scene-item">
+        <div class="si-label">
+          <span>Scene</span>
+          <span class="si-num">7</span>
+          <span>Resolution</span>
+        </div>
+        <div class="si-body">
+          <p class="si-title">Ending — Traces Remain</p>
+          <p class="si-desc">A more stable form exists. But the stitch lines, structural traces, and deformation marks remain visible. <strong>Emotion does not disappear — it changes structure and persists.</strong> The system carries the history of its inputs.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 6. Visual System -->
+  <div class="ps">
+    <p class="ey">06 — Visual Language</p>
+    <h2 class="pt">Material as structural metaphor</h2>
+    <div class="tc" style="margin-bottom:28px;">
+      <div class="pb2">
+        <p>Every visual element in the film carries a <strong>structural meaning</strong>, not an aesthetic one. Textile materials are chosen because they naturally embody the properties of emotional states — tension, compression, deformation, resilience.</p>
+        <p>The recurring textile horse/unicorn figure is the <strong>emotion-structure made physical</strong>: <em>"If emotion had a body, what structure would it have?"</em></p>
+      </div>
+      <div class="pb2">
+        <p>The <strong>SYSTEM MODE overlay</strong> — grid lines, scan UI, calibration screens, data labels — functions as a register shift within the film itself. It signals the move from poetic image to analytical system, making visible what was previously felt.</p>
+      </div>
+    </div>
+    <div class="mat-grid">
+      <div class="mat-item"><div class="mat-icon">◇</div><div class="mat-label">Lace</div><div class="mat-meaning">Emotional openness</div></div>
+      <div class="mat-item"><div class="mat-icon">≋</div><div class="mat-label">Silk / Organza</div><div class="mat-meaning">Fragility · surface</div></div>
+      <div class="mat-item"><div class="mat-icon">●</div><div class="mat-label">Pearls</div><div class="mat-meaning">Crystallised memory</div></div>
+      <div class="mat-item"><div class="mat-icon">⊞</div><div class="mat-label">Woven Grid</div><div class="mat-meaning">System · structure</div></div>
+      <div class="mat-item"><div class="mat-icon">∿</div><div class="mat-label">Stitch Lines</div><div class="mat-meaning">Relational traces</div></div>
+      <div class="mat-item"><div class="mat-icon">⌖</div><div class="mat-label">Scan UI</div><div class="mat-meaning">Analytical mode</div></div>
+    </div>
+  </div>
+
+  <!-- 7. Distinction -->
+  <div class="ps">
+    <p class="ey">07 — What Makes This Different</p>
+    <h2 class="pt">Not expression — translation</h2>
+    <div class="distinction">
+      <div class="dist-col">
+        <p class="dist-label">Conventional emotion-based work</p>
+        <div class="dist-item"><span class="dist-icon">✗</span><span class="dist-text">Narrative storytelling</span></div>
+        <div class="dist-item"><span class="dist-icon">✗</span><span class="dist-text">Character-centred emotion</span></div>
+        <div class="dist-item"><span class="dist-icon">✗</span><span class="dist-text">Catharsis as goal</span></div>
+        <div class="dist-item"><span class="dist-icon">✗</span><span class="dist-text">Emotion as fixed state</span></div>
+        <div class="dist-item"><span class="dist-icon">✗</span><span class="dist-text">Resolution = healing</span></div>
+      </div>
+      <div class="dist-col">
+        <p class="dist-label">Emotion Translation Bureau</p>
+        <div class="dist-item"><span class="dist-icon">✔</span><span class="dist-text">Emotion as structural data</span></div>
+        <div class="dist-item"><span class="dist-icon">✔</span><span class="dist-text">Material as translation medium</span></div>
+        <div class="dist-item"><span class="dist-icon">✔</span><span class="dist-text">System logic as framework</span></div>
+        <div class="dist-item"><span class="dist-icon">✔</span><span class="dist-text">Emotion as variable output</span></div>
+        <div class="dist-item"><span class="dist-icon">✔</span><span class="dist-text">Resolution = reorganisation</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Theoretical Context -->
+  <div class="ps">
+    <p class="ey">08 — Theoretical Context</p>
+    <h2 class="pt">Where this project sits</h2>
+    <div class="context-grid">
+      <div class="ctx-box">
+        <p class="ctx-tag">Affect Theory</p>
+        <p class="ctx-body">Drawing on affect theory's positioning of emotion as pre-linguistic and bodily — before it becomes named feeling — the project explores what happens when affect is intercepted at the material level and rendered as structural change rather than psychological state.</p>
+      </div>
+      <div class="ctx-box">
+        <p class="ctx-tag">System Design</p>
+        <p class="ctx-body">The film's core logic is drawn from system design thinking: inputs, states, outputs, and rules. The variability of emotional response under identical stimuli is modelled as a rule-based system rather than explained as psychology.</p>
+      </div>
+      <div class="ctx-box">
+        <p class="ctx-tag">Interaction Design</p>
+        <p class="ctx-body">The SYSTEM MODE sequences borrow the visual language of interaction design — scan UI, calibration screens, data overlays — to reframe the emotional body as an interface. The viewer becomes an analyst, not a sympathiser.</p>
+      </div>
+      <div class="ctx-box">
+        <p class="ctx-tag">Media Art / Experimental Film</p>
+        <p class="ctx-body">The film operates in the tradition of experimental media art — using non-narrative structure, material abstraction, and system-based organisation to resist conventional cinematic emotion while still generating affective experience.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Conclusion -->
+  <div class="ps">
+    <p class="ey">09 — Critical Rationale</p>
+    <h2 class="pt">Why this matters</h2>
+    <div class="tc">
+      <div>
+        <div class="ab">
+          <p>This project is not about <em>expressing</em> emotion — it is about <strong>demonstrating that emotion can be translated as a structural system</strong>. The film is the proof of concept.</p>
+          <p>By treating textile as data, structural deformation as state change, and the same input producing different outputs as the core argument, ETB makes a claim about the nature of emotional experience: <strong>emotion is not a fixed state — it is a dynamic response architecture shaped by existing structure and history.</strong></p>
+          <p>The persistence of traces — stitch lines, deformation marks, structural changes — after the film ends is the final argument: <strong>emotion does not disappear. It restructures and remains.</strong></p>
+        </div>
+      </div>
+      <div>
+        <div class="prof-quote">
+          <p class="pq-label">Assessed as particularly strong by faculty</p>
+          <p class="pq-text">"The approach of treating emotion as a translation process — as interaction logic and mediation structure — positions this as a research-based project far beyond conventional aesthetic work."</p>
+        </div>
+        <div class="pb2" style="margin-top:20px;">
+          <p>AI tools are used not as the concept but as <strong>variation-testing instruments</strong> — generating structural mutations, simulating response divergence, and producing the visual evidence needed to demonstrate the system's logic. This is academic justification for AI use: tool, not author.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .pb -->
+
+<!-- project nav -->
+<div class="pnav">
+  <div style="flex:1;"></div>
+  <a href="seowon_portfolio_v7.html" class="pla next">Back to Portfolio</a>
+</div>
+
+</body>
+</html>

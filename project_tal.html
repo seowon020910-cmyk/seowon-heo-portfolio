@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tal: Shout for Freedom — Seowon Heo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#faf6f2;--white:#fff;--ink:#1a1410;--mid:#5a5248;--soft:#a09488;--rule:rgba(26,20,16,0.1);--rule2:rgba(26,20,16,0.05);--accent:rgba(180,160,150,0.15);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'Space Mono',monospace;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(250,246,242,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule);}
+.nav-back{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color .2s;}.nav-back:hover{color:var(--ink);}.nav-back::before{content:'←';font-size:12px;}
+.nav-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:var(--mid);}.nav-num{font-size:9px;letter-spacing:.15em;color:var(--soft);}
+.project-hero{padding-top:46px;display:grid;grid-template-columns:1fr 1fr;min-height:70vh;border-bottom:1px solid var(--rule);}
+.ph-left{padding:60px 48px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--rule);}
+.ph-tag{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--soft);margin-bottom:20px;display:flex;align-items:center;gap:10px;}.ph-tag::before{content:'';width:20px;height:1px;background:var(--soft);}
+.ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:.95;letter-spacing:-.02em;margin-bottom:20px;}.ph-title em{font-style:italic;}
+.ph-subtitle{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--mid);margin-bottom:36px;line-height:1.7;}
+.ph-meta-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--rule);}
+.ph-meta-item{padding:14px 18px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);}.ph-meta-item:nth-child(even){border-right:none;}.ph-meta-item:nth-last-child(-n+2){border-bottom:none;}
+.pm-key{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin-bottom:4px;}.pm-val{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:var(--mid);}
+.ph-right{background:#f0ebe4;display:flex;align-items:center;justify-content:center;}
+.ph-right-placeholder{text-align:center;padding:40px;}.ph-right-placeholder p{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--soft);line-height:2;}
+.keywords{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;}.kw{font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:100px;border:1px solid var(--rule);color:var(--mid);background:var(--white);}
+.award-badge{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:6px 16px;border-radius:100px;border:1px solid rgba(180,120,80,.3);color:#b47840;background:rgba(180,120,80,.08);}
+.project-body{max-width:1200px;margin:0 auto;}
+.p-section{border-bottom:1px solid var(--rule);padding:56px 48px;}.p-section:last-child{border-bottom:none;}
+.ps-eyebrow{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--soft);margin-bottom:12px;display:flex;align-items:center;gap:10px;}.ps-eyebrow::before{content:'';width:16px;height:1px;background:var(--soft);}
+.ps-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;font-style:italic;margin-bottom:28px;}
+.ps-body{font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.9;color:var(--mid);max-width:68ch;}.ps-body p{margin-bottom:14px;}.ps-body strong{font-weight:400;color:var(--ink);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+.quote-block{border-left:2px solid var(--rule);padding:16px 0 16px 24px;margin:24px 0;}.quote-block p{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--mid);line-height:1.8;}
+.process-steps{list-style:none;}.ps-step{display:grid;grid-template-columns:40px 1fr;gap:16px;padding:24px 0;border-bottom:1px solid var(--rule2);}.ps-step:last-child{border-bottom:none;}
+.ps-step-num{font-size:9px;letter-spacing:.1em;color:var(--soft);padding-top:3px;}.ps-step-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;margin-bottom:8px;}.ps-step-desc{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--mid);line-height:1.8;}
+.img-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}.img-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0;}.img-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}
+.img-placeholder{aspect-ratio:4/3;background:#ede8e0;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;border-radius:2px;}.img-placeholder p{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);text-align:center;padding:12px;line-height:1.8;}
+.img-caption{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-top:-4px;margin-bottom:16px;padding-left:4px;}
+.venue-tag{display:inline-block;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:100px;border:1px solid var(--rule);color:var(--mid);background:var(--white);margin:3px;}
+.achievement-box{background:var(--accent);border:1px solid var(--rule);padding:28px 32px;border-radius:2px;}.achievement-box p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.85;color:var(--mid);margin-bottom:12px;}.achievement-box p:last-child{margin-bottom:0;}
+.links-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;}.proj-link{font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:8px 20px;border:1px solid var(--rule);color:var(--mid);text-decoration:none;background:var(--white);transition:all .2s;}.proj-link:hover{background:var(--ink);color:var(--cream);border-color:var(--ink);}
+.project-nav{border-top:1px solid var(--rule);padding:40px 48px;display:flex;justify-content:space-between;align-items:center;}
+.pn-label{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);margin-bottom:6px;}.pn-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-style:italic;}
+.pn-link{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color .2s;margin-top:8px;}.pn-link:hover{color:var(--ink);}.pn-link.prev::before{content:'←';font-size:14px;}.pn-link.next::after{content:'→';font-size:14px;}
+@media(max-width:900px){.project-hero{grid-template-columns:1fr;}.ph-left{padding:40px 24px;border-right:none;border-bottom:1px solid var(--rule);}.ph-right{min-height:280px;}.p-section{padding:40px 24px;}.two-col{grid-template-columns:1fr;gap:24px;}.img-grid-2,.img-grid-3,.img-grid-4{grid-template-columns:1fr 1fr;}.project-nav{padding:32px 24px;flex-direction:column;gap:20px;align-items:flex-start;}nav{padding:0 16px;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="seowon_portfolio_v7.html" class="nav-back">Back to Portfolio</a>
+  <span class="nav-title">Tal: Shout for Freedom</span>
+  <span class="nav-num">005 / 017</span>
+</nav>
+<div class="project-hero">
+  <div class="ph-left">
+    <p class="ph-tag">Young Creators' Original Musical · 2024</p>
+    <h1 class="ph-title"><em>Tal:<br>Shout for<br>Freedom</em></h1>
+    <p class="ph-subtitle">A unified costume direction inspired by traditional Korean visual motifs — designed across three consecutive performance runs at multiple venues.</p>
+    <div class="ph-meta-grid">
+      <div class="ph-meta-item"><p class="pm-key">Role</p><p class="pm-val">Costume Designer + Makeup & Hair Designer</p></div>
+      <div class="ph-meta-item"><p class="pm-key">Duration</p><p class="pm-val">May – Aug 2024</p></div>
+      <div class="ph-meta-item"><p class="pm-key">Venues</p><p class="pm-val">Red Gate → Yongin Poeun Art Hall → Namsan Drama Centre</p></div>
+      <div class="ph-meta-item"><p class="pm-key">Runs</p><p class="pm-val">3 consecutive performances</p></div>
+      <div class="ph-meta-item"><p class="pm-key">Programme</p><p class="pm-val">2024 Young Creators' Original Musical</p></div>
+      <div class="ph-meta-item"><p class="pm-key">Type</p><p class="pm-val">Musical Theatre / Costume, Hair & Makeup Design</p></div>
+    </div>
+    <div style="margin-top:16px;">
+      <span class="award-badge">★ 2024 Korea University Theatre Festival Finalist</span><br>
+      <span class="award-badge" style="margin-top:6px;">★ 2024 Apro Stage Selection</span><br>
+      <span class="award-badge" style="margin-top:6px;">★ 2024 Young Creators Program</span>
+    </div>
+    <div class="keywords" style="margin-top:16px;">
+      <span class="kw">Visual Unity</span><span class="kw">Traditional Korean</span><span class="kw">Multi-Venue</span><span class="kw">Quick-Change</span><span class="kw">Hair Direction</span><span class="kw">Sadangpae</span>
+    </div>
+  </div>
+  <div class="ph-right"><img src="tal_poster.jpg" alt="Tal Poster" style="width:100%;height:100%;object-fit:cover;object-position:top;"></div>
+</div>
+<div class="project-body">
+  <div class="p-section">
+    <p class="ps-eyebrow">Background & Objective</p>
+    <h2 class="ps-title">Cohesive visual identity across three venues</h2>
+    <div class="two-col">
+      <div class="ps-body">
+        <p>For this production, I developed a <strong>unified costume direction inspired by traditional Korean visual motifs</strong> — designing colour palettes and styling details tailored to each performer.</p>
+        <p>Working under a <strong>highly compressed timeline and across multiple venues</strong>, I built a coherent aesthetic that enhanced narrative clarity and stage presence throughout three consecutive runs.</p>
+        <p>As no dedicated hair/makeup team was assigned, I also took full responsibility for <strong>hair styling and makeup direction</strong> across the production.</p>
+      </div>
+      <div>
+        <div class="quote-block"><p>"A production requiring creative design, historical reference, and practical execution — delivered across three consecutive runs at Seoul, Yongin, and Namsan."</p></div>
+        <div style="margin-top:16px;">
+          <p style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:8px;">Performance Venues</p>
+          <span class="venue-tag">Red Gate Theatre — Seoul Arts</span>
+          <span class="venue-tag">Yongin Poeun Art Hall</span>
+          <span class="venue-tag">Namsan Drama Centre</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p-section">
+    <p class="ps-eyebrow">Process</p>
+    <h2 class="ps-title">Design, fabrication, and direction</h2>
+    <ul class="process-steps">
+      <li class="ps-step">
+        <span class="ps-step-num">01</span>
+        <div>
+          <p class="ps-step-title">Costume Design & Fabrication</p>
+          <p class="ps-step-desc">Reviewed each character's role and historical context to determine the appropriate costume direction. Selected base garments matching the period aesthetic and modified them to fit each performer's movement and personality. Designed and fabricated custom waistbands for all cast members to emphasise the vibrancy of the Sadangpae — considering each costume's tone, fabric texture, and colour palette to create visual unity. Also crafted mituri-style footwear and incorporated traditional silhouettes.</p>
+          <div class="img-grid-2" style="margin-top:16px;">
+            <div style="overflow:hidden;border:1px solid var(--rule);"><img src="tal_waist1.jpg" alt="Waistband fabrication" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div>
+            <div style="overflow:hidden;border:1px solid var(--rule);"><img src="tal_waist2.jpg" alt="Period detailing" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div>
+          </div>
+          <p class="img-caption">Costume adjustments, waistband fabrication, and period-style detailing</p>
+        </div>
+      </li>
+      <li class="ps-step">
+        <span class="ps-step-num">02</span>
+        <div>
+          <p class="ps-step-title">Quick-Change Management</p>
+          <p class="ps-step-desc">Created a comprehensive quick-change chart for all cast members — mapping each performer's entrance/exit timing, costume transitions, backstage positions, and assistance requirements. Critical moments were marked in red and organised scene-by-scene. This system was used across all three venues, including the transfer performance at Yongin Citizen's Culture Hall.</p>
+          <div style="overflow:hidden;border:1px solid var(--rule);"><img src="tal_quickchange.jpg" alt="Quick-change chart" style="width:100%;aspect-ratio:16/7;object-fit:cover;display:block;"></div>
+          <p class="img-caption">Quick-change chart coordinating backstage transitions across venues</p>
+        </div>
+      </li>
+      <li class="ps-step">
+        <span class="ps-step-num">03</span>
+        <div>
+          <p class="ps-step-title">Hair & Makeup Direction</p>
+          <p class="ps-step-desc">Developed hairstyles that could visually support character shifts while remaining practical for rapid backstage transitions. For the Sadangpae troupe, designed braided styles reflecting the period setting and complementing the costume silhouettes — crafted to withstand movement-heavy choreography.</p>
+          <div class="img-grid-2" style="margin-top:16px;">
+            <div style="overflow:hidden;border:1px solid var(--rule);"><img src="tal_hair1.jpg" alt="Braided hairstyle 1" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div>
+            <div style="overflow:hidden;border:1px solid var(--rule);"><img src="tal_hair2.jpg" alt="Braided hairstyle 2" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div>
+          </div>
+          <p class="img-caption">Braided hairstyles designed to match period costumes and support multi-role transitions</p>
+        </div>
+      </li>
+      <li class="ps-step">
+        <span class="ps-step-num">04</span>
+        <div>
+          <p class="ps-step-title">Multi-Venue Coordination</p>
+          <p class="ps-step-desc">Organised the full rehearsal and performance schedule across all venues — coordinating fittings, quick-changes, and costume transportation during overlapping productions. Ensured consistent backstage operations across three different stage environments.</p>
+          <div style="overflow:hidden;border:1px solid var(--rule);"><img src="tal_schedule.jpg" alt="Production timeline" style="width:100%;aspect-ratio:16/7;object-fit:cover;display:block;"></div>
+          <p class="img-caption">Full production timeline across Seoul Arts University, Yongin, and Namsan</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="p-section">
+    <p class="ps-eyebrow">Result</p>
+    <h2 class="ps-title">Performance photos</h2>
+    <div class="img-grid-4">
+      
+      
+      
+      
+    </div>
+    <div class="img-grid-4" style="margin-top:10px;">
+      
+      
+      
+      
+    </div>
+  </div>
+  <div class="p-section">
+    <p class="ps-eyebrow">Achievements & Reflections</p>
+    <h2 class="ps-title">What I learned</h2>
+    <div class="achievement-box">
+      <p>Through this project, I strengthened my ability to deliver <strong>cohesive visual design under time pressure</strong> — selecting, modifying, and fabricating costumes that aligned with each performer's role and the traditional aesthetic of Tal: Shout for Freedom.</p>
+      <p>By designing custom waistbands, period-appropriate details, and braided hairstyles, I established a <strong>unified visual identity for the Sadangpae ensemble</strong> while supporting performer comfort and movement.</p>
+      <p>Managing quick-change operations, backstage transitions, and hair/makeup direction across multiple venues further developed my <strong>adaptability and coordination skills</strong> — preparing me for larger-scale productions and multidisciplinary environments.</p>
+    </div>
+    <div class="links-row" style="margin-top:32px;">
+      <a href="https://www.instagram.com/since.tal" target="_blank" class="proj-link">Instagram @since.tal ↗</a><div style="margin-top:12px;"><img src="tal_qr.jpg" style="width:100px;border:1px solid var(--rule);"></div>
+    </div>
+  </div>
+</div>
+<div class="project-nav">
+  <div>
+    <p class="pn-label">Previous</p>
+    <p class="pn-title"><em>AI LAB — So We Ask</em></p>
+    <a href="project_ailab.html" class="pn-link prev">AI LAB</a>
+  </div>
+  <a href="seowon_portfolio_v7.html" class="pn-link next" style="align-self:center;">Back to all work</a>
+  <div style="text-align:right;">
+    <p class="pn-label">Next</p>
+    <p class="pn-title"><em>30 Milligrams of Ulipristal</em></p>
+    <a href="project_30mg.html" class="pn-link next" style="justify-content:flex-end;">30mg</a>
+  </div>
+</div>
+</body>
+</html>

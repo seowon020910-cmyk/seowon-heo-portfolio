@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Over Sleep — Seowon Heo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf6f2;
+  --white: #ffffff;
+  --ink: #1a1410;
+  --mid: #5a5248;
+  --soft: #a09488;
+  --rule: rgba(26,20,16,0.1);
+  --rule2: rgba(26,20,16,0.05);
+  --accent: rgba(180,160,150,0.15);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Space Mono', monospace;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  height: 46px;
+  display: flex; align-items:center; justify-content:space-between;
+  padding: 0 32px;
+  background: rgba(250,246,242,0.95);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-back {
+  font-size: 9px; letter-spacing:0.18em; text-transform:uppercase;
+  color: var(--soft); text-decoration:none;
+  display: flex; align-items:center; gap:8px; transition: color 0.2s;
+}
+.nav-back:hover { color: var(--ink); }
+.nav-back::before { content:'←'; font-size:12px; }
+.nav-title { font-family:'Cormorant Garamond',serif; font-size:1rem; font-style:italic; color:var(--mid); }
+.nav-num { font-size:9px; letter-spacing:0.15em; color:var(--soft); }
+
+/* ── HERO ── */
+.project-hero {
+  padding-top: 46px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 70vh; border-bottom: 1px solid var(--rule);
+}
+.ph-left {
+  padding: 60px 48px;
+  display: flex; flex-direction:column; justify-content:center;
+  border-right: 1px solid var(--rule);
+}
+.ph-tag {
+  font-size: 9px; letter-spacing:0.25em; text-transform:uppercase;
+  color: var(--soft); margin-bottom:20px;
+  display:flex; align-items:center; gap:10px;
+}
+.ph-tag::before { content:''; width:20px; height:1px; background:var(--soft); }
+.ph-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size: clamp(2.5rem,5vw,4.5rem);
+  font-weight:300; line-height:0.95; letter-spacing:-0.02em; margin-bottom:20px;
+}
+.ph-title em { font-style:italic; }
+.ph-subtitle {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem; font-style:italic;
+  color:var(--mid); margin-bottom:36px; line-height:1.7;
+}
+.ph-meta-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:0; border:1px solid var(--rule);
+}
+.ph-meta-item {
+  padding:14px 18px;
+  border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);
+}
+.ph-meta-item:nth-child(even) { border-right:none; }
+.ph-meta-item:nth-last-child(-n+2) { border-bottom:none; }
+.pm-key { font-size:8px; letter-spacing:0.18em; text-transform:uppercase; color:var(--soft); margin-bottom:4px; }
+.pm-val { font-family:'Cormorant Garamond',serif; font-size:1rem; font-style:italic; color:var(--mid); }
+
+.ph-right { background:#f0ebe4; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.ph-right-placeholder { text-align:center; padding:40px; }
+.ph-right-placeholder p { font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--soft); line-height:2; }
+
+.keywords { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.kw {
+  font-size:8px; letter-spacing:0.12em; text-transform:uppercase;
+  padding:4px 14px; border-radius:100px;
+  border:1px solid var(--rule); color:var(--mid); background:var(--white);
+}
+
+/* ── BODY ── */
+.project-body { max-width:1200px; margin:0 auto; }
+
+.p-section { border-bottom:1px solid var(--rule); padding:56px 48px; }
+.p-section:last-child { border-bottom:none; }
+
+.ps-eyebrow {
+  font-size:9px; letter-spacing:0.22em; text-transform:uppercase;
+  color:var(--soft); margin-bottom:12px;
+  display:flex; align-items:center; gap:10px;
+}
+.ps-eyebrow::before { content:''; width:16px; height:1px; background:var(--soft); }
+.ps-title { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; font-style:italic; margin-bottom:28px; }
+.ps-body { font-family:'Cormorant Garamond',serif; font-size:1.1rem; line-height:1.9; color:var(--mid); max-width:68ch; }
+.ps-body p { margin-bottom:14px; }
+.ps-body p:last-child { margin-bottom:0; }
+.ps-body strong { font-weight:400; color:var(--ink); }
+
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
+
+.quote-block { border-left:2px solid var(--rule); padding:16px 0 16px 24px; margin:24px 0; }
+.quote-block p { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-style:italic; color:var(--mid); line-height:1.8; }
+
+.process-steps { list-style:none; }
+.ps-step { display:grid; grid-template-columns:40px 1fr; gap:16px; padding:24px 0; border-bottom:1px solid var(--rule2); }
+.ps-step:last-child { border-bottom:none; }
+.ps-step-num { font-size:9px; letter-spacing:0.1em; color:var(--soft); padding-top:3px; }
+.ps-step-title { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-style:italic; margin-bottom:8px; }
+.ps-step-desc { font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--mid); line-height:1.8; }
+
+.img-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0; }
+.img-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin:20px 0; }
+.img-placeholder {
+  aspect-ratio:4/3; background:#ede8e0; border:1px solid var(--rule);
+  display:flex; align-items:center; justify-content:center; border-radius:2px;
+}
+.img-placeholder p { font-size:8px; letter-spacing:0.12em; text-transform:uppercase; color:var(--soft); text-align:center; padding:12px; line-height:1.8; }
+.img-caption { font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:var(--soft); margin-top:-4px; margin-bottom:16px; padding-left:4px; }
+
+.achievement-box { background:var(--accent); border:1px solid var(--rule); padding:28px 32px; border-radius:2px; }
+.achievement-box p { font-family:'Cormorant Garamond',serif; font-size:1.1rem; line-height:1.85; color:var(--mid); margin-bottom:12px; }
+.achievement-box p:last-child { margin-bottom:0; }
+
+.links-row { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+.proj-link {
+  font-size:9px; letter-spacing:0.14em; text-transform:uppercase;
+  padding:8px 20px; border:1px solid var(--rule);
+  color:var(--mid); text-decoration:none; background:var(--white); transition:all 0.2s;
+}
+.proj-link:hover { background:var(--ink); color:var(--cream); border-color:var(--ink); }
+
+/* photo grid for final shots */
+.photo-section-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem; font-style:italic; color:var(--mid);
+  margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--rule2);
+}
+.img-grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:16px 0; }
+
+/* next/prev nav */
+.project-nav {
+  border-top:1px solid var(--rule); padding:40px 48px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.pn-block {}
+.pn-label { font-size:8px; letter-spacing:0.2em; text-transform:uppercase; color:var(--soft); margin-bottom:6px; }
+.pn-title { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-style:italic; }
+.pn-link {
+  font-size:9px; letter-spacing:0.15em; text-transform:uppercase;
+  color:var(--mid); text-decoration:none; display:flex; align-items:center; gap:8px; transition:color 0.2s;
+}
+.pn-link:hover { color:var(--ink); }
+.pn-link.prev::before { content:'←'; font-size:14px; }
+.pn-link.next::after { content:'→'; font-size:14px; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .project-hero { grid-template-columns:1fr; }
+  .ph-left { padding:40px 24px; border-right:none; border-bottom:1px solid var(--rule); }
+  .ph-right { min-height:280px; }
+  .p-section { padding:40px 24px; }
+  .two-col { grid-template-columns:1fr; gap:24px; }
+  .img-grid-2,.img-grid-3,.img-grid-4 { grid-template-columns:1fr 1fr; }
+  .project-nav { padding:32px 24px; flex-direction:column; gap:20px; align-items:flex-start; }
+  nav { padding:0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="seowon_portfolio_v7.html" class="nav-back">Back to Portfolio</a>
+  <span class="nav-title">Over Sleep</span>
+  <span class="nav-num">002 / 017</span>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="project-hero">
+  <div class="ph-left">
+    <p class="ph-tag">Young Creators' Original Musical · 2023</p>
+    <h1 class="ph-title"><em>Over<br>Sleep</em></h1>
+    <p class="ph-subtitle">A university-funded original musical exploring how costume design translates character emotion and narrative tone through colour, texture, and movement on stage.</p>
+
+    <div class="ph-meta-grid">
+      <div class="ph-meta-item">
+        <p class="pm-key">Role</p>
+        <p class="pm-val">Lead Costume Designer</p>
+      </div>
+      <div class="ph-meta-item">
+        <p class="pm-key">Duration</p>
+        <p class="pm-val">Jun – Aug 2023</p>
+      </div>
+      <div class="ph-meta-item">
+        <p class="pm-key">Venue</p>
+        <p class="pm-val">Seoul Institute of the Arts — Red Gate Theatre</p>
+      </div>
+      <div class="ph-meta-item">
+        <p class="pm-key">Programme</p>
+        <p class="pm-val">University Innovation Support — Young Creators</p>
+      </div>
+      <div class="ph-meta-item">
+        <p class="pm-key">Type</p>
+        <p class="pm-val">Original Musical / Costume Design</p>
+      </div>
+      <div class="ph-meta-item">
+        <p class="pm-key">Focus</p>
+        <p class="pm-val">Visual identity, stage coordination</p>
+      </div>
+    </div>
+
+    <div class="keywords">
+      <span class="kw">Visual Consistency</span>
+      <span class="kw">Lighting Cue</span>
+      <span class="kw">Stage Coordination</span>
+      <span class="kw">Documentation</span>
+      <span class="kw">Dream & Reality</span>
+      <span class="kw">Original Musical</span>
+    </div>
+  </div>
+
+  <div class="ph-right">
+    <div class="ph-right-placeholder">
+      <p>Poster / Production image<br>add image file to folder<br>and update src here</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── BODY ── -->
+<div class="project-body">
+
+  <!-- Background -->
+  <div class="p-section">
+    <p class="ps-eyebrow">Background & Objective</p>
+    <h2 class="ps-title">Costume as visual storytelling</h2>
+    <div class="two-col">
+      <div class="ps-body">
+        <p>This project was developed through the <strong>University Innovation Support Program for Young Creators</strong> as part of the costume design team.</p>
+        <p>It aimed to explore <strong>visual storytelling</strong> in theatre — integrating costume, movement, and stage design to deliver an emotionally cohesive narrative.</p>
+        <p>Through this process, I learned to approach costume design as a <strong>visual language</strong> that shapes both performance and audience experience.</p>
+      </div>
+      <div>
+        <div class="quote-block">
+          <p>"A university-funded original musical project that explores how costume design can translate character emotion and narrative tone through colour, texture, and movement on stage."</p>
+        </div>
+        <div style="margin-top:16px;"><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_poster_2.jpg" alt="Over Sleep — Programme poster" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;"></div></div>
+        <div class="ps-body" style="margin-top:12px;"><p>The poster visual — soft gradients and moonlight tones — was designed to express nostalgia and the feeling of floating through memory. This concept guided the overall stage atmosphere and costume palette.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Process -->
+  <div class="p-section">
+    <p class="ps-eyebrow">Process</p>
+    <h2 class="ps-title">From analysis to stage</h2>
+    <ul class="process-steps">
+
+      <li class="ps-step">
+        <span class="ps-step-num">01</span>
+        <div>
+          <p class="ps-step-title">Character & Script Analysis</p>
+          <p class="ps-step-desc">Before designing, I analysed the script, character relationships, and time period to understand each role's emotional tone and visual identity. This research helped define each character's personality through costume, fabric choice, and colour palette.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr ;gap:10px;margin:16px 0;"><div style="background:var(--accent);border:1px solid var(--rule);padding:28px 32px;margin:20px 0;border-radius:2px;">
+  <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);margin-bottom:20px;">Character & Script Analysis — Over Sleep</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--ink);margin-bottom:8px;">진 (Jin)</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--mid);line-height:1.8;">28살 · 작곡가를 꿈꾸는 청년 · 기면증 · 사랑이라는 감정을 느끼면 잠에 듦 · 자신의 마음을 조정하는 능력이 뛰어남</p>
+    </div>
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--ink);margin-bottom:8px;">아드리안 (Adrian)</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--mid);line-height:1.8;">진의 꿈 속 악몽의 존재 · 퇴폐적, 권위적 · 자신의 존재가 사라지는 걸 두려워 함</p>
+    </div>
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--ink);margin-bottom:8px;">필립 (Philip)</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--mid);line-height:1.8;">28살 · 자신의 감정에 솔직, 진취적 · 꿈을 통해 어머니를 찾고자 함</p>
+    </div>
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--ink);margin-bottom:8px;">조안나 (Joanna)</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--mid);line-height:1.8;">27살 · 씩씩하고 밝음 · 사랑을 주는 방법은 어색 · 자기랑은 다른 진에게 점점 빠져듦</p>
+    </div>
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--ink);margin-bottom:8px;">사라 (Sara)</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--mid);line-height:1.8;">진의 어머니 · 부드럽고 온화 · 자식을 잃은 과오로 인해 상처가 깊음</p>
+    </div>
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--ink);margin-bottom:8px;">포드 (Ford)</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--mid);line-height:1.8;">조안나의 아버지 · 긍정적 · 딸바보 · 조안나에게 특별한 아버지이자 인생의 선배</p>
+    </div>
+  </div>
+</div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_costume_1.jpg" alt="Costume reference — Joanna character" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div></div>
+          <p class="img-caption">Character and script analysis documentation</p>
+        </div>
+      </li>
+
+      <li class="ps-step">
+        <span class="ps-step-num">02</span>
+        <div>
+          <p class="ps-step-title">Costume Styling & Fitting</p>
+          <p class="ps-step-desc">Based on the analysis, I developed multiple costume combinations in the wardrobe studio to reflect character traits and scene transitions. Initial fittings were conducted with performers to confirm fit, movement, and stage compatibility — followed by secondary fittings during rehearsals.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr ;gap:10px;margin:16px 0;"><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_fitting_1.jpg" alt="First fitting — Joanna costume" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_fitting_2.jpg" alt="Second fitting — costume check" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_quickchange.jpg" alt="Quick-change chart" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div></div>
+          <p class="img-caption">First and second costume fittings with performers</p>
+        </div>
+      </li>
+
+      <li class="ps-step">
+        <span class="ps-step-num">03</span>
+        <div>
+          <p class="ps-step-title">Rehearsal Coordination</p>
+          <p class="ps-step-desc">During weekly rehearsals, I coordinated with the director and cast to ensure that each costume aligned with character expression, movement, and comfort. I participated in multiple fitting sessions to verify that costumes maintained balance under stage lighting and movement constraints. Feedback from actors was promptly reflected to enhance performance quality and realism.</p>
+          
+          <p class="img-caption">Weekly rehearsal plan showing costume checks, fitting schedules, and scene run-through coordination</p>
+        </div>
+      </li>
+
+      <li class="ps-step">
+        <span class="ps-step-num">04</span>
+        <div>
+          <p class="ps-step-title">Technical Rehearsal & Setup Week</p>
+          <p class="ps-step-desc">During the technical rehearsal and setup week, I checked costume conditions under stage lighting and made final adjustments for performance readiness. Quick-change points were rehearsed with the stage management and lighting crew to ensure seamless scene transitions. This phase focused on maintaining timing precision, costume accuracy, and backstage coordination during live shows.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr ;gap:10px;margin:16px 0;"><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_setup_1.jpg" alt="SET-UP schedule Day 1" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_setup_2.jpg" alt="SET-UP schedule Day 2" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div></div>
+          <p class="img-caption">SET-UP schedule illustrating costume change workflow, lighting alignment, and final-stage operation</p>
+        </div>
+      </li>
+
+      <li class="ps-step">
+        <span class="ps-step-num">05</span>
+        <div>
+          <p class="ps-step-title">Performance & Live Management</p>
+          <p class="ps-step-desc">During the technical rehearsal period, I refined costume details based on lighting cues, stage movement, and performer blocking — ensuring each costume behaved consistently under live-performance conditions. Before the dress rehearsal, I prepared identical costume presets for each performer and coordinated quick-change timings with the stage management team, ensuring smooth transitions across consecutive performances.</p>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- Final Photos -->
+  <div class="p-section">
+    <p class="ps-eyebrow">Result</p>
+    <h2 class="ps-title">Performance photos</h2>
+
+    <p class="photo-section-title">Seoul Institute of the Arts — Red Gate Theatre</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr ;gap:10px;margin:16px 0;"><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_perf_1.jpg" alt="Performance — Joanna & Jin scene" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_perf_2.jpg" alt="Performance — Joanna & Adrian scene" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_perf_3.jpg" alt="Performance — Ford & Sarah scene" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_perf_4.jpg" alt="Performance — Philip solo scene" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;"></div></div>
+
+    <p class="photo-section-title" style="margin-top:32px;">Namsan Drama Centre — Reading Performance</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr ;gap:10px;margin:16px 0;"><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_perf_5.jpg" alt="Reading performance — full cast" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_perf_6.jpg" alt="Reading performance — Joanna solo" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;"></div><div style="overflow:hidden;border:1px solid var(--rule);"><img src="oversleep_perf_7.jpg" alt="Reading performance — Jin & Joanna" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;"></div></div>
+  </div>
+
+  <!-- Achievements -->
+  <div class="p-section">
+    <p class="ps-eyebrow">Achievements & Reflections</p>
+    <h2 class="ps-title">What I learned</h2>
+    <div class="achievement-box">
+      <p>Through this project, I strengthened my ability to <strong>respond quickly to costume adjustments</strong> during SET-UP week and live rehearsals. Working with performers and stage staff helped me understand how costume fit and movement change under real performance conditions.</p>
+      <p>In the musical format, I paid close attention to <strong>performer mobility</strong> — ensuring that costumes supported choreography and stage blocking without discomfort. This experience deepened my understanding of how functional design can enhance character expression.</p>
+      <p>Overall, the project enhanced both the practical and artistic aspects of my costume design approach, providing a strong foundation for future production work.</p>
+    </div>
+
+    <div class="links-row" style="margin-top:32px;">
+      <a href="https://www.instagram.com" target="_blank" class="proj-link">Instagram — @sia.oversleep ↗</a>
+      <a href="https://www.instagram.com" target="_blank" class="proj-link">Instagram — @apro_festa ↗</a>
+      <span class="proj-link" style="cursor:default;opacity:0.5;">Costume Design PDF</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── PROJECT NAV ── -->
+<div class="project-nav">
+  <div class="pn-block">
+    <p class="pn-label">Previous</p>
+    <p class="pn-title"><em>The Lehman Trilogy</em></p>
+    <a href="project_lehman.html" class="pn-link prev" style="margin-top:8px;">The Lehman Trilogy</a>
+  </div>
+  <a href="seowon_portfolio_v7.html" class="pn-link next" style="align-self:center;">Back to all work</a>
+  <div class="pn-block" style="text-align:right;">
+    <p class="pn-label">Next</p>
+    <p class="pn-title"><em>FAME</em></p>
+    <a href="project_fame.html" class="pn-link next" style="margin-top:8px;justify-content:flex-end;">FAME — Musical</a>
+  </div>
+</div>
+
+</body>
+</html>
